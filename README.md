@@ -14,3 +14,6 @@ https://www.youtube.com/watch?v=xiowCksSKpk
 Authentication Code
 https://nextjs.org/docs/app/building-your-application/authentication
 Quickstart Next.js Guide from https://auth0.com/
+
+NextAuth.js
+https://www.youtube.com/watch?v=PEMfsqZ2-As
