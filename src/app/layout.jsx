@@ -1,4 +1,6 @@
-import Nav from "../components/navbar/Nav.jsx";
+import Nav from "@/components/navbar/Nav.jsx";
+import Footer from "@/components/footer/Footer.jsx";
+
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
@@ -20,6 +22,7 @@ export default function RootLayout({ children }) {
           <Nav />
           <div className="flex-grow overflow-y-auto bg-page text-default-text">
             {children}
+            <Footer />
           </div>
         </div>
       </body>
