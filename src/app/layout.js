@@ -1,12 +1,10 @@
-import Nav from "./(components)/Nav";
+import Nav from "../components/navbar/Nav.jsx";
 import { Inter } from "next/font/google";
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
-
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 
+const inter = Inter({ subsets: ["latin"] });
 config.autoAddCss = false;
 
 export const metadata = {
