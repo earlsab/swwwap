@@ -8,10 +8,10 @@ Understanding React
 https://www.udemy.com/course/react-the-complete-guide-incl-redux
 
 Understanding Next.js, MongoDB
-x https://www.youtube.com/watch?v=H0vhkoXljq0
+https://www.youtube.com/watch?v=H0vhkoXljq0
 
 Understanding Next.js, MongoDB, Auth0, Vercel
-x https://www.youtube.com/watch?v=xiowCksSKpk
+https://www.youtube.com/watch?v=xiowCksSKpk
 
 Authentication Code
 https://nextjs.org/docs/app/building-your-application/authentication

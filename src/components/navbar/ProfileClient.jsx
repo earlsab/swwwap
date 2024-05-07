@@ -13,7 +13,7 @@ export default function ProfileClient() {
     user && (
       <div
         style={{
-          position: "relative", // Change position to relative
+          position: "relative",
           display: "flex",
           alignItems: "center",
         }}
