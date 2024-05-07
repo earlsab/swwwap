@@ -1,5 +1,7 @@
 www.swwwap.vercel.com
 
+CSS might or might not be done with the help of Github Copilot.
+
 Tutorials that helped along the way:
 
 Understanding React
