@@ -1,6 +1,9 @@
+import { useState } from "react";
 import Image from "next/image";
 
 export default function ProfileClient({ user, error, isLoading }) {
+  const [showDetails, setShowDetails] = useState(false);
+
   let component = (
     <button
       className="btl"
@@ -9,15 +12,18 @@ export default function ProfileClient({ user, error, isLoading }) {
       Login
     </button>
   );
-  if (user)
+
+  if (user) {
     component = (
-      <>
-        <div
+      <div style={{ position: "relative" }}>
+        <button
+          className="btl"
           style={{
-            position: "relative",
-            display: "flex",
-            alignItems: "center",
+            background: "none",
+            border: "none",
+            cursor: "pointer",
           }}
+          onClick={() => setShowDetails(!showDetails)}
         >
           <div
             style={{
@@ -36,7 +42,20 @@ export default function ProfileClient({ user, error, isLoading }) {
               objectFit="contain"
             />
           </div>
-          <div>
+        </button>
+        {showDetails && (
+          <div
+            style={{
+              position: "absolute",
+              top: "100%",
+              right: 0, // Set right to 0 to prevent overflow to the right side
+              background: "white",
+              boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.5)", // Increased shadow value
+              borderRadius: "4px",
+              padding: "10px",
+              zIndex: 9999,
+            }}
+          >
             <h2>{user.name}</h2>
             <p>{user.email}</p>
             <button
@@ -46,8 +65,10 @@ export default function ProfileClient({ user, error, isLoading }) {
               Logout
             </button>
           </div>
-        </div>
-      </>
+        )}
+      </div>
     );
+  }
+
   return component;
 }
