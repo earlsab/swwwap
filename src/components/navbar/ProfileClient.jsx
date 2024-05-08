@@ -1,11 +1,6 @@
-import { useUser } from "@auth0/nextjs-auth0/client";
 import Image from "next/image";
 
-export default function ProfileClient() {
-  const { user, error, isLoading } = useUser();
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>{error.message}</div>;
+export default function ProfileClient({ user, error, isLoading }) {
   let component = (
     <button
       className="btl"
@@ -44,14 +39,14 @@ export default function ProfileClient() {
           <div>
             <h2>{user.name}</h2>
             <p>{user.email}</p>
+            <button
+              className="btl"
+              onClick={() => (window.location.href = "/api/auth/logout")}
+            >
+              Logout
+            </button>
           </div>
         </div>
-        <button
-          className="btl"
-          onClick={() => (window.location.href = "/api/auth/logout")}
-        >
-          Logout
-        </button>
       </>
     );
   return component;

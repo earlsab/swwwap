@@ -3,7 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import ProfileClient from "./ProfileClient";
 import Image from "next/image";
+import { useUser } from "@auth0/nextjs-auth0/client";
 export default function Nav() {
+  const { user, error, isLoading } = useUser();
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>{error.message}</div>;
   return (
     <nav className="flex justify-between p-5">
       <div className="flex items-center space-x-4">
@@ -12,7 +17,7 @@ export default function Nav() {
         </Link>
       </div>
       <div className="flex items-center space-x-4">
-        <ProfileClient />
+        <ProfileClient user={user} error={error} isLoading={isLoading} />
 
         <p className="text-default-text"></p>
       </div>
