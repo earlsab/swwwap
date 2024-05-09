@@ -1,3 +1,4 @@
+// https://medium.com/@nithishreddy0627/connecting-your-next-js-project-to-mongodb-atlas-using-mongoose-a-step-by-step-guide-2d2552b5d7ca
 import mongoose from "mongoose";
 
 const DATABASE_URL = process.env.DATABASE_URL;
