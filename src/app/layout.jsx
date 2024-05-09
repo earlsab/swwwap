@@ -1,14 +1,14 @@
-import Nav from "./(components)/Nav";
+import Nav from "@/components/navbar/Nav.jsx";
+import Footer from "@/components/footer/Footer.jsx";
+
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css";
 
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 
 const inter = Inter({ subsets: ["latin"] });
-
-import { config } from "@fortawesome/fontawesome-svg-core";
-import "@fortawesome/fontawesome-svg-core/styles.css";
-
 config.autoAddCss = false;
 
 export const metadata = {
@@ -27,6 +27,7 @@ export default function RootLayout({ children }) {
               {children}
             </div>
           </div>
+          <Footer />
         </body>
       </UserProvider>
     </html>
