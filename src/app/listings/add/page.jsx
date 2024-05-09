@@ -19,21 +19,6 @@ function SellItemForm() {
         description,
         price,
       });
-      //   const response = await fetch("/api/data/item", {
-      //     method: "POST",
-      //     body: JSON.stringify(),
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //   });
-
-      if (response.ok) {
-        // Handle success
-        console.log("Item added successfully");
-      } else {
-        // Handle error
-        console.log("Failed to add item");
-      }
     } catch (error) {
       console.error("Error:", error);
     }
