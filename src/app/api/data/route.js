@@ -1,11 +1,11 @@
-import user from "src/model/User.js";
-import connectDB from "src/lib/connectDB.js";
+import User from "@/model/User";
+import connectDB from "@/lib/connectDB";
 
 export default async function handler(req, res) {
   await connectDB();
 
   const { name, age } = req.body;
-  const person = new user({
+  const person = new User({
     name: name,
     age: age,
   });
