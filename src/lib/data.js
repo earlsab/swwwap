@@ -8,6 +8,7 @@ export const getPosts = async () => {
   return postcss;
 };
 
+export { users, items };
 // export const getPost = aysnc (id) => {
 
 // }
