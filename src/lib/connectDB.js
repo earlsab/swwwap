@@ -1,6 +1,7 @@
 // https://medium.com/@nithishreddy0627/connecting-your-next-js-project-to-mongodb-atlas-using-mongoose-a-step-by-step-guide-2d2552b5d7ca
 import mongoose from "mongoose";
 
+// FIXME: might have problem where it would create a new connection post/get request
 const DATABASE_URL = process.env.DATABASE_URL;
 
 if (!DATABASE_URL) {
@@ -17,6 +18,7 @@ if (!cached) {
 
 async function connectDB() {
   if (cached.conn) {
+    console.log("Using cached connection.");
     return cached.conn;
   }
 
@@ -26,10 +28,12 @@ async function connectDB() {
     };
 
     cached.promise = mongoose.connect(DATABASE_URL, opts).then((mongoose) => {
+      console.log("Using new connection.");
       return mongoose;
     });
   }
   cached.conn = await cached.promise;
+  console.log("Using cached connection.");
   return cached.conn;
 }
 

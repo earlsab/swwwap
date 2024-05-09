@@ -9,7 +9,6 @@ export default function Listing() {
   async function fetchData() {
     const response = await axios.get("/api/data/item", {});
     // const data = await response.json();
-    console.log(response);
     setData(response.data);
     console.log(response);
   }
