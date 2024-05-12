@@ -15,7 +15,7 @@ function SellItemForm() {
     console.log("Form submitted:", { title, description, price });
 
     try {
-      const response = await axios.post("/api/data/item", {
+      const response = await axios.post("/api/data/item/addItem", {
         title,
         description,
         price,
