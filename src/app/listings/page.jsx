@@ -73,5 +73,5 @@ export default withPageAuthRequired(
     //   fetchData();
     // }, []);
   },
-  { returnTo: "/listings" }
+  { returnTo: "/listings" } // TODO: Double check if it works
 );

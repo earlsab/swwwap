@@ -3,7 +3,8 @@ import Image from "next/image";
 
 export default function ProfileClient({ user, error, isLoading }) {
   const [showDetails, setShowDetails] = useState(false);
-
+  // FIXME: Fix manual email and password input.
+  // TODO: Add signup button.
   let component = (
     <button
       className="btl"

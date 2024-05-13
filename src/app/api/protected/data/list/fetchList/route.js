@@ -7,7 +7,7 @@ import { NextResponse } from "next/server";
 
 export const GET = withApiAuthRequired(async function fetchItems(req) {
   const res = new NextResponse();
-  const { user } = await getSession(req, res);
+  // const { user } = await getSession(req, res);
   await connectDB();
   const items = await Item.find({});
   return NextResponse.json({ protected: items }, res);
