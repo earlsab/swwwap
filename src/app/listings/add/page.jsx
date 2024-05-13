@@ -15,12 +15,14 @@ function SellItemForm() {
     console.log("Form submitted:", { title, description, price });
 
     try {
-      const response = await axios.post("/api/data/item/addItem", {
+      const response = await axios.post("/api/protected/data/list/addItem", {
         title,
         description,
         price,
       });
+      console.log(response);
     } catch (error) {
+      console.log(response);
       console.error("Error:", error);
     }
   };

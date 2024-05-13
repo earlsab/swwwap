@@ -1,4 +1,8 @@
-export default withApiAuthRequired(async function POST(req) {
+import connectDB from "@/lib/connectDB";
+import Item from "@/model/Item";
+import { withApiAuthRequired, getSession } from "@auth0/nextjs-auth0";
+
+export const POST = withApiAuthRequired(async function addItem(req) {
   //TODO: remove logs
   console.log(req);
   const { user } = await getSession();

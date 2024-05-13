@@ -5,6 +5,7 @@ import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import useSWR from "swr";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Link from "next/link";
 
 // DONE: Secure page behind auth
 
@@ -34,7 +35,7 @@ const fetcher = async (uri) => {
 export default withPageAuthRequired(
   function Listing() {
     const { data, error } = useSWR(
-      "/api/protected/data/items/fetchItems",
+      "/api/protected/data/list/fetchList",
       fetcher
     );
     if (error) return <div>oops... {error.message}</div>;
@@ -44,7 +45,19 @@ export default withPageAuthRequired(
       <>
         <SellItemForm />
         {data.protected.map((item) => (
-          <pre key={item._id}>{item.title}</pre>
+          // <pre key={item._id}>{item.title}</pre>
+          <Link key={item._id} href={`listings/${item._id}`}>
+            <button
+              style={{
+                backgroundColor: "blue",
+                color: "white",
+                padding: "10px",
+                margin: "5px",
+              }}
+            >
+              {item.title}
+            </button>
+          </Link>
         ))}
       </>
     );
