@@ -1,5 +1,5 @@
 "use client";
-import SellItemForm from "@/components/SellItemForm";
+import ItemForm from "@/components/ItemForm";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import axios from "axios";
 import React from "react";
@@ -23,7 +23,7 @@ function handleToast({ type, message }) {
 export default withPageAuthRequired(function AddPage() {
   return (
     <div>
-      <SellItemForm toast={handleToast} />
+      <ItemForm toast={handleToast} />
       <ToastContainer />
     </div>
   );

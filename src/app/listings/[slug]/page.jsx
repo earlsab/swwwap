@@ -1,21 +1,20 @@
 "use client";
-// export default function List({ id, item }) {
-//   if (!item) return <div>List</div>;
-// }
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import Link from "next/link";
-import { useState } from "react";
+
 import useSWR from "swr";
+import ItemForm from "@/components/ItemForm"; // Import the ItemForm component
+import { useState } from "react";
 
 const fetcher = async (uri) => {
   const response = await fetch(uri);
   return response.json();
 };
 
-// https://auth0.github.io/nextjs-auth0/types/helpers_with_page_auth_required.WithPageAuthRequiredAppRouter.html
 export default withPageAuthRequired(
   function Item({ params }) {
-    // console.log({ params });
+    const [isEditing, setIsEditing] = useState(false); // Add state for editing
+
     const { data, error } = useSWR(
       `/api/protected/data/fetchItem?id=${params.slug}`,
       fetcher
@@ -29,29 +28,42 @@ export default withPageAuthRequired(
     if (data === undefined) return <div>Loading...</div>;
 
     function handleEdit() {
-      // console.log("edit");
-      // console.log(data.protected._id);
-      window.location.href = `/listings/edit/${data.protected._id}`;
+      if (!isEditing) setIsEditing(true); // Set isEditing to true when edit button is clicked
     }
+
     return (
       <>
-        {/* <Link href={`/listings/edit/${params.slug}`}>edit</Link> */}
-        {/* <button onClick=>Edit</button> */}
         {Object.entries(data.protected).map(([key, value]) => (
           <div key={key}>
             {key}: {value}
           </div>
         ))}
         {data.protected && data.isEditable && (
-          <button onClick={handleEdit}>Edit</button>
+          <button
+            style={{
+              backgroundColor: "blue",
+              color: "white",
+              padding: "10px",
+              borderRadius: "5px",
+            }}
+            onClick={handleEdit}
+          >
+            Edit
+          </button>
+        )}
+        {isEditing && (
+          <ItemForm
+            data={data}
+            setIsEditing={setIsEditing}
+            isEditing={isEditing}
+          />
         )}
       </>
     );
   },
   {
-    // FIXME: allow to return properly
     returnTo({ params }) {
-      `return /listings/${params.slug}`;
+      return `/listings/${params.slug}`; // Fix the returnTo function to return the correct URL
     },
   }
 );

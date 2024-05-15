@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 
 export const POST = withApiAuthRequired(async function addItem(req) {
   //TODO: remove logs
-  console.log(req);
+
   const { user } = await getSession();
   if (!user) {
     res.status(404).json;
@@ -15,7 +15,7 @@ export const POST = withApiAuthRequired(async function addItem(req) {
   await connectDB();
 
   const res = await req.json(); // res now contains body
-  console.log(res);
+  // console.log(res);
   const { title, description, price } = res;
 
   const item = new Item({

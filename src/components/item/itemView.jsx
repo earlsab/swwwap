@@ -1,5 +1,5 @@
 "use client";
 
-export default function ItemView({ data, owner }) {
+export default function ItemView() {
   return <div></div>;
 }

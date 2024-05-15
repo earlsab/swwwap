@@ -12,10 +12,7 @@ export const GET = withApiAuthRequired(async function fetchItems(req) {
   const urlParams = new URLSearchParams(req.url.split("?")[1]);
   const itemId = urlParams.get("id");
   const item = await Item.findById(itemId);
-  console.log(item);
-  console.log(user);
-  const editable = item.owner === user.email;
-  console.log(editable);
+  const editableBool = item.owner === user.email;
 
-  return NextResponse.json({ protected: item, isEditable: editable }, res);
+  return NextResponse.json({ protected: item, isEditable: editableBool }, res);
 });
