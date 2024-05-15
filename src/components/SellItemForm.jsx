@@ -1,18 +1,37 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
-function SellItemForm({ handleSubmit }) {
+function SellItemForm({ toast }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
+  const router = useRouter();
 
-  const handleFormSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    console.log("Form submitted:", { title, description, price });
     e.preventDefault();
-    handleSubmit({ title, description, price });
+    try {
+      const response = await axios.post("/api/protected/data/addItem", {
+        title,
+        description,
+        price,
+      });
+      console.log(response);
+      const itemId = response.data.protected._id;
+      // toast.success(
+      //   "Item added successfully! Item ID: " + itemID,
+      //   toastSettings
+      // );
+      router.push(`/listings/${itemId}`);
+    } catch (error) {
+      // toast.error("Item added successfully!", toastSettings);
+      console.error("Error:", error);
+      // toast.error("An error occurred. Please try again later.");
+    }
   };
-
   return (
-    <form onSubmit={handleFormSubmit}>
+    <form onSubmit={handleSubmit}>
       <label>
         Title:
         <input
