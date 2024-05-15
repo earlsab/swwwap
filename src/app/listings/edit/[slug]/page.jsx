@@ -11,7 +11,7 @@ const fetcher = async (uri) => {
 export default withPageAuthRequired(
   function EditItem({ params }) {
     const { data, error } = useSWR(
-      `/api/protected/data/list/fetchItem?id=${params.slug}`,
+      `/api/protected/data/fetchItem?id=${params.slug}`,
       fetcher
     );
     const { user, errorUser, isLoading } = useUser();

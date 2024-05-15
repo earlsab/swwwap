@@ -27,17 +27,24 @@ export default withPageAuthRequired(
         </div>
       );
     if (data === undefined) return <div>Loading...</div>;
-    console.log("DATA:", data);
 
+    function handleEdit() {
+      // console.log("edit");
+      // console.log(data.protected._id);
+      window.location.href = `/listings/edit/${data.protected._id}`;
+    }
     return (
       <>
-        <Link href={`/listings/edit/${params.slug}`}>edit</Link>
+        {/* <Link href={`/listings/edit/${params.slug}`}>edit</Link> */}
         {/* <button onClick=>Edit</button> */}
         {Object.entries(data.protected).map(([key, value]) => (
           <div key={key}>
             {key}: {value}
           </div>
         ))}
+        {data.protected && data.isEditable && (
+          <button onClick={handleEdit}>Edit</button>
+        )}
       </>
     );
   },

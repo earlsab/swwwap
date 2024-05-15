@@ -19,13 +19,19 @@ function SellItemForm({ toast }) {
       });
       console.log(response);
       const itemId = response.data.protected._id;
-      // toast.success(
-      //   "Item added successfully! Item ID: " + itemID,
-      //   toastSettings
-      // );
-      router.push(`/listings/${itemId}`);
+      toast({
+        type: "success",
+        message:
+          "Item added successfully! You will be redirected to the created page.",
+      });
+      setTimeout(() => {
+        router.push(`/listings/${itemId}`);
+      }, 5000);
     } catch (error) {
-      // toast.error("Item added successfully!", toastSettings);
+      toast({
+        type: "error",
+        message: "An error occurred. Please try again later.",
+      });
       console.error("Error:", error);
       // toast.error("An error occurred. Please try again later.");
     }

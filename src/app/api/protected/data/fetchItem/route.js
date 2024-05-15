@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 
 export const GET = withApiAuthRequired(async function fetchItems(req) {
   const res = new NextResponse();
-  // const { user } = await getSession(req, res);
+  const { user } = await getSession(req, res);
   console.log(req);
   await connectDB();
 
@@ -13,5 +13,9 @@ export const GET = withApiAuthRequired(async function fetchItems(req) {
   const itemId = urlParams.get("id");
   const item = await Item.findById(itemId);
   console.log(item);
-  return NextResponse.json({ protected: item }, res);
+  console.log(user);
+  const editable = item.owner === user.email;
+  console.log(editable);
+
+  return NextResponse.json({ protected: item, isEditable: editable }, res);
 });
