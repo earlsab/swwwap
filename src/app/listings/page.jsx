@@ -34,16 +34,13 @@ const fetcher = async (uri) => {
 // https://auth0.github.io/nextjs-auth0/types/helpers_with_page_auth_required.WithPageAuthRequiredAppRouter.html
 export default withPageAuthRequired(
   function Listing() {
-    const { data, error } = useSWR(
-      "/api/protected/data/list/fetchList",
-      fetcher
-    );
+    const { data, error } = useSWR("/api/protected/data/fetchList", fetcher);
     if (error) return <div>oops... {error.message}</div>;
     if (data === undefined) return <div>Loading...</div>;
 
     return (
       <>
-        <SellItemForm />
+        <Link href="/listings/add">Add</Link>
         {data.protected.map((item) => (
           // <pre key={item._id}>{item.title}</pre>
           <Link key={item._id} href={`listings/${item._id}`}>

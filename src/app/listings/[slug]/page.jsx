@@ -17,7 +17,7 @@ export default withPageAuthRequired(
   function Item({ params }) {
     // console.log({ params });
     const { data, error } = useSWR(
-      `/api/protected/data/list/fetchItem?id=${params.slug}`,
+      `/api/protected/data/fetchItem?id=${params.slug}`,
       fetcher
     );
     if (error)

@@ -1,6 +1,7 @@
 import connectDB from "@/lib/connectDB";
 import Item from "@/model/Item";
 import { withApiAuthRequired, getSession } from "@auth0/nextjs-auth0";
+import { permanentRedirect, redirect } from "next/navigation";
 
 export const POST = withApiAuthRequired(async function addItem(req) {
   //TODO: remove logs
@@ -26,9 +27,9 @@ export const POST = withApiAuthRequired(async function addItem(req) {
     .save()
     .then(() => {
       console.log("Item saved successfully", title, description, price);
-      return new Response();
     })
     .catch((error) => {
       console.error("Error saving item:", error);
     });
+  return res;
 });
