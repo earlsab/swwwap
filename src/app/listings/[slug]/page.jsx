@@ -5,6 +5,7 @@ import Link from "next/link";
 import useSWR from "swr";
 import ItemForm from "@/components/ItemForm"; // Import the ItemForm component
 import { useState } from "react";
+import axios from "axios";
 
 const fetcher = async (uri) => {
   const response = await fetch(uri);
@@ -31,6 +32,11 @@ export default withPageAuthRequired(
       if (!isEditing) setIsEditing(true); // Set isEditing to true when edit button is clicked
     }
 
+    async function handleDelete() {
+      await axios.delete(`/api/protected/data/deleteItem?id=${params.slug}`);
+      router.push("/listings"); // Redirect to the listings page after deleting the item
+    }
+
     return (
       <>
         {Object.entries(data.protected).map(([key, value]) => (
@@ -39,17 +45,30 @@ export default withPageAuthRequired(
           </div>
         ))}
         {data.protected && data.isEditable && (
-          <button
-            style={{
-              backgroundColor: "blue",
-              color: "white",
-              padding: "10px",
-              borderRadius: "5px",
-            }}
-            onClick={handleEdit}
-          >
-            Edit
-          </button>
+          <>
+            <button
+              style={{
+                backgroundColor: "blue",
+                color: "white",
+                padding: "10px",
+                borderRadius: "5px",
+              }}
+              onClick={handleEdit}
+            >
+              Edit
+            </button>
+            <button
+              style={{
+                backgroundColor: "red",
+                color: "white",
+                padding: "10px",
+                borderRadius: "5px",
+              }}
+              onClick={handleDelete}
+            >
+              Delete
+            </button>
+          </>
         )}
         {isEditing && (
           <ItemForm

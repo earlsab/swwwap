@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 export const GET = withApiAuthRequired(async function fetchItems(req) {
   const res = new NextResponse();
   const { user } = await getSession(req, res);
-  console.log(req);
+  // console.log(req);
   await connectDB();
 
   const urlParams = new URLSearchParams(req.url.split("?")[1]);
