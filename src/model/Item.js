@@ -6,6 +6,7 @@ const Item = mongoose.Schema(
     title: String,
     description: String,
     price: Number,
+    imageUrl: String,
   },
   {
     timestamps: true,
