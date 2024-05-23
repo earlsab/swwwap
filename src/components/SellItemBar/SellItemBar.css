@@ -1,0 +1,15 @@
+.container {
+    height: 15%;
+    width: 100%;
+    border: 1px;
+    margin-left: 10px;
+}
+.textsSellItemBar
+{
+    font-size: 45px;
+}
+.ButtonHolderSellItemBar
+{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

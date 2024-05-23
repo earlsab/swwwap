@@ -36,7 +36,7 @@ export default function Nav() {
           {links.map((link) => (
             <Link
               key={link.link}
-              href={link.link}
+              href={`/${link.link}`}
               className="text-default-text"
             >
               <span className="bg-white rounded-full text-black p-2">

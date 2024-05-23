@@ -1,0 +1,93 @@
+[
+    {
+      "id": 1,
+      "imageUrl": "https://preview.redd.it/m4t0sddnhgo91.jpg?width=640&crop=smart&auto=webp&s=1e94923a3e6554388b1a460e1a00e217239fd0bb",
+      "ownerName": "Parker Manalaysay",
+      "title": "iPhone 14 Pro",
+      "price": 34000,
+      "priceDetail": "Below the market",
+      "quality": "New",
+      "content": "Lorem ipsum dolor sit amet"
+    },
+    {
+      "id": 2,
+      "imageUrl": "https://th.bing.com/th/id/OIP.s3v-yJN9QRkb0vE7nnUHAQHaE8?rs=1&pid=ImgDetMain",
+      "ownerName": "Justin farin",
+      "title": "iPhone 12",
+      "price": 12999,
+      "priceDetail": "Average",
+      "quality": "1st hand",
+      "content": "Sed do eiusmod tempor "
+    },
+    {
+        "id": 3,
+        "imageUrl": "https://static0.pocketlintimages.com/wordpress/wp-content/uploads/2024/05/ipad-pro-2024-final-cut.jpg",
+        "ownerName": "EJ Sab",
+        "title": "iPad Pro 2023",
+        "price": 90000,
+        "priceDetail": "Overpriced",
+        "quality": "Brand New",
+        "content": "Sed do eiusmod tempor incididunt u"
+      },
+      {
+        "id": 4,
+        "imageUrl": "https://preview.redd.it/m4t0sddnhgo91.jpg?width=640&crop=smart&auto=webp&s=1e94923a3e6554388b1a460e1a00e217239fd0bb",
+        "ownerName": "Parker Manalaysay",
+        "title": "iPhone 14 Pro",
+        "price": 34000,
+        "priceDetail": "Below the market",
+        "quality": "New",
+        "content": "Lorem ipsum dolor sit amet"
+      },
+      {
+        "id": 5,
+        "imageUrl": "https://th.bing.com/th/id/OIP.s3v-yJN9QRkb0vE7nnUHAQHaE8?rs=1&pid=ImgDetMain",
+        "ownerName": "Justin farin",
+        "title": "iPhone 12",
+        "price": 12999,
+        "priceDetail": "Average",
+        "quality": "1st hand",
+        "content": "Sed do eiusmod tempor "
+      },
+      {
+          "id": 6,
+          "imageUrl": "https://static0.pocketlintimages.com/wordpress/wp-content/uploads/2024/05/ipad-pro-2024-final-cut.jpg",
+          "ownerName": "EJ Sab",
+          "title": "iPad Pro 2023",
+          "price": 90000,
+          "priceDetail": "Overpriced",
+          "quality": "Brand New",
+          "content": "Sed do eiusmod tempor incididunt u"
+        },
+        {
+          "id": 7,
+          "imageUrl": "https://preview.redd.it/m4t0sddnhgo91.jpg?width=640&crop=smart&auto=webp&s=1e94923a3e6554388b1a460e1a00e217239fd0bb",
+          "ownerName": "Parker Manalaysay",
+          "title": "iPhone 14 Pro",
+          "price": 34000,
+          "priceDetail": "Below the market",
+          "quality": "New",
+          "content": "Lorem ipsum dolor sit amet"
+        },
+        {
+          "id": 8,
+          "imageUrl": "https://th.bing.com/th/id/OIP.s3v-yJN9QRkb0vE7nnUHAQHaE8?rs=1&pid=ImgDetMain",
+          "ownerName": "Justin farin",
+          "title": "iPhone 12",
+          "price": 12999,
+          "priceDetail": "Average",
+          "quality": "1st hand",
+          "content": "Sed do eiusmod tempor "
+        },
+        {
+            "id": 9,
+            "imageUrl": "https://static0.pocketlintimages.com/wordpress/wp-content/uploads/2024/05/ipad-pro-2024-final-cut.jpg",
+            "ownerName": "EJ Sab",
+            "title": "iPad Pro 2023",
+            "price": 90000,
+            "priceDetail": "Overpriced",
+            "quality": "Brand New",
+            "content": "Sed do eiusmod tempor incididunt u"
+          }
+  ]
+  

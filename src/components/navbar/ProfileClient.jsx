@@ -1,16 +1,16 @@
 import { useState } from "react";
 import Image from "next/image";
+import Button from "../utilities/button/Button";
 
 export default function ProfileClient({ user, error, isLoading }) {
   const [showDetails, setShowDetails] = useState(false);
-
+  // FIXME: Fix manual email and password input.
+  // TODO: Add signup button.
   let component = (
-    <button
-      className="btl"
-      onClick={() => (window.location.href = "/api/auth/login")}
-    >
-      Login
-    </button>
+    <Button 
+    variant="outlined" 
+    onClick={() => (window.location.href = "/api/auth/login")} 
+    text="Log in"/>
   );
 
   if (user) {
