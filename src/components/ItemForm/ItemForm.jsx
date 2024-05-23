@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import "./ItemForm.css";
 import Button from "../utilities/button/Button";
+import { CldUploadButton } from "next-cloudinary";
 
 function ItemForm({
   toast = null,
@@ -14,6 +15,7 @@ function ItemForm({
   const [id, setId] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   const router = useRouter();
   // if (data != null) {
   //   setTitle(data.protected.title);
@@ -32,6 +34,7 @@ function ItemForm({
           title,
           description,
           price,
+          imageUrl,
         });
         console.log(response);
         const itemId = response.data.protected._id;
@@ -89,50 +92,59 @@ function ItemForm({
   }, []);
   return (
     <div className="containerForItemForm">
-    <div className="HeaderForItemForm">
-      <h1>Selling your phone?</h1>
-    </div>
-    <div className="BodyForItemForm">
-      <div className="FormsCatalogueForItemForm">
-        <form onSubmit={handleSubmit}>
-          <label>
-            Title:
-            <br/>
-            <input
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-          </label>
-          <br />
-          <label>
-            Description:
-            <br/>
-            <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
-          </label>
-          <br />
-          <label>
-            Price:
-            <br/>
-            <input
-              type="number"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-            />
-          </label>
-          <br />
-          <br />
-          <Button variant="longContained" onClick={handleSubmit} text="List for Sale" />
-        </form>
-        
+      <div className="HeaderForItemForm">
+        <h1>Selling your phone?</h1>
       </div>
-      <div className="ImagecatalgueforItemForm">
+      <div className="BodyForItemForm">
+        <div className="FormsCatalogueForItemForm">
+          <form onSubmit={handleSubmit}>
+            <label>
+              Title:
+              <br />
+              <input
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+            </label>
+            <br />
+            <label>
+              Description:
+              <br />
+              <textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </label>
+            <br />
+            <label>
+              Price:
+              <br />
+              <input
+                type="number"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+              />
+            </label>
 
+            <CldUploadButton
+              uploadPreset="gos2dtki"
+              onSuccess={(results) => {
+                setImageUrl(results.info.public_id);
+                console.log("Public ID", results.info.public_id);
+              }}
+            />
+            <br />
+            <br />
+            <Button
+              variant="longContained"
+              type="submit"
+              text="List for Sale"
+            />
+          </form>
+        </div>
+        <div className="ImagecatalgueforItemForm"></div>
       </div>
-    </div>
     </div>
   );
 }

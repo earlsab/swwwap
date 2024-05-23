@@ -15,14 +15,15 @@ export const POST = withApiAuthRequired(async function addItem(req) {
   await connectDB();
 
   const res = await req.json(); // res now contains body
-  // console.log(res);
-  const { title, description, price } = res;
+  console.log(res);
+  const { title, description, price, imageUrl } = res;
 
   const item = new Item({
     owner: user.email,
     title: title,
     description: description,
     price: price,
+    imageUrl: imageUrl,
   });
   const itemtoSave = await item.save();
   return NextResponse.json({ protected: itemtoSave }, res);
