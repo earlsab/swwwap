@@ -1,0 +1,17 @@
+.header {
+  display: flex;
+  align-items: center;
+  background-color: white;
+}
+
+.header h1 {
+  color: black;
+  margin-left: 10px; /* Adjust as needed */
+  margin-right: 25px;
+  font-weight: 600;
+  font-size: 40px;
+}
+
+.header .button {
+  margin-left: auto;
+}

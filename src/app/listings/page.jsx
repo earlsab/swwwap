@@ -6,6 +6,10 @@ import useSWR from "swr";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
+import Item from "@/components/item/Item";
+import FeaturedBar from "@/components/FeaturedBar/FeaturedBar";
+import "./listings.css";
+import SellItemBar from "@/components/SellItemBar/SellItemBar";
 
 // DONE: Secure page behind auth
 
@@ -34,32 +38,18 @@ const fetcher = async (uri) => {
 // https://auth0.github.io/nextjs-auth0/types/helpers_with_page_auth_required.WithPageAuthRequiredAppRouter.html
 export default withPageAuthRequired(
   function Listing() {
-    const { data, error } = useSWR(
-      "/api/protected/data/list/fetchList",
-      fetcher
-    );
+    const { data, error } = useSWR("/api/protected/data/fetchList", fetcher);
     if (error) return <div>oops... {error.message}</div>;
     if (data === undefined) return <div>Loading...</div>;
 
     return (
       <>
-        <SellItemForm />
-        {data.protected.map((item) => (
-          // <pre key={item._id}>{item.title}</pre>
-          <Link key={item._id} href={`listings/${item._id}`}>
-            <button
-              style={{
-                backgroundColor: "blue",
-                color: "white",
-                padding: "10px",
-                margin: "5px",
-              }}
-            >
-              {item.title}
-            </button>
-          </Link>
-        ))}
+        <SellItemBar />
+        <div className="container2">
+          <FeaturedBar/>
+        </div>
       </>
+      
     );
     // const [data, setData] = useState();
     // async function fetchData() {

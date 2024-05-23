@@ -1,63 +1,30 @@
 "use client";
-// Copilot Code
+import ItemForm from "@/components/ItemForm/ItemForm";
+import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import axios from "axios";
-import React, { useState } from "react";
+import React from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import toastSettings from "@/components/toastySettings";
 
-function SellItemForm() {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // Add your logic here to handle form submission
-    // For example, you can send the form data to an API or update the state
-    console.log("Form submitted:", { title, description, price });
-
-    try {
-      const response = await axios.post("/api/protected/data/list/addItem", {
-        title,
-        description,
-        price,
-      });
-      console.log(response);
-    } catch (error) {
-      console.log(response);
-      console.error("Error:", error);
-    }
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Title:
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-      </label>
-      <br />
-      <label>
-        Description:
-        <textarea
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-      </label>
-      <br />
-      <label>
-        Price:
-        <input
-          type="number"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-        />
-      </label>
-      <br />
-      <button type="submit">Sell Item</button>
-    </form>
-  );
+function handleToast({ type, message }) {
+  switch (type) {
+    case "success":
+      toast.success(message, toastSettings);
+      break;
+    case "error":
+      toast.error(message, toastSettings);
+      break;
+    default:
+      toast(message, toastSettings);
+  }
 }
 
-export default SellItemForm;
+export default withPageAuthRequired(function AddPage() {
+  return (
+    <div>
+      <ItemForm toast={handleToast} />
+      <ToastContainer />
+    </div>
+  );
+});

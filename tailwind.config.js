@@ -14,10 +14,10 @@ module.exports = {
       },
       colors: {
         nav: "#18222f",
-        page: "#2b3441",
+        page: "#fff",
         card: "#47566a",
         "card-hover": "#4f5e74",
-        "default-text": "#f1f3f5",
+        "default-text": "#000",
         "blue-accent": "#0084d4",
         "blue-accent-hover": "#009fff",
       },

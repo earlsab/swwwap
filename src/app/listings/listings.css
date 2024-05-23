@@ -1,0 +1,6 @@
+.container2 {
+    flex-direction: column;
+    background-color: white;
+    width: auto;
+    height: 100vh;
+}

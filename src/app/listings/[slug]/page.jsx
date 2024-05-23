@@ -1,23 +1,23 @@
 "use client";
-// export default function List({ id, item }) {
-//   if (!item) return <div>List</div>;
-// }
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import Link from "next/link";
-import { useState } from "react";
+
 import useSWR from "swr";
+import ItemForm from "@/components/ItemForm/ItemForm"; // Import the ItemForm component
+import { useState } from "react";
+import axios from "axios";
 
 const fetcher = async (uri) => {
   const response = await fetch(uri);
   return response.json();
 };
 
-// https://auth0.github.io/nextjs-auth0/types/helpers_with_page_auth_required.WithPageAuthRequiredAppRouter.html
 export default withPageAuthRequired(
   function Item({ params }) {
-    // console.log({ params });
+    const [isEditing, setIsEditing] = useState(false); // Add state for editing
+
     const { data, error } = useSWR(
-      `/api/protected/data/list/fetchItem?id=${params.slug}`,
+      `/api/protected/data/fetchItem?id=${params.slug}`,
       fetcher
     );
     if (error)
@@ -27,24 +27,62 @@ export default withPageAuthRequired(
         </div>
       );
     if (data === undefined) return <div>Loading...</div>;
-    console.log("DATA:", data);
+
+    function handleEdit() {
+      if (!isEditing) setIsEditing(true); // Set isEditing to true when edit button is clicked
+    }
+
+    async function handleDelete() {
+      await axios.delete(`/api/protected/data/deleteItem?id=${params.slug}`);
+      router.push("/listings"); // Redirect to the listings page after deleting the item
+    }
 
     return (
       <>
-        <Link href={`/listings/edit/${params.slug}`}>edit</Link>
-        {/* <button onClick=>Edit</button> */}
         {Object.entries(data.protected).map(([key, value]) => (
           <div key={key}>
             {key}: {value}
           </div>
         ))}
+        {data.protected && data.isEditable && (
+          <>
+            <button
+              style={{
+                backgroundColor: "blue",
+                color: "white",
+                padding: "10px",
+                borderRadius: "5px",
+              }}
+              onClick={handleEdit}
+            >
+              Edit
+            </button>
+            <button
+              style={{
+                backgroundColor: "red",
+                color: "white",
+                padding: "10px",
+                borderRadius: "5px",
+              }}
+              onClick={handleDelete}
+            >
+              Delete
+            </button>
+          </>
+        )}
+        {isEditing && (
+          <ItemForm
+            data={data}
+            setIsEditing={setIsEditing}
+            isEditing={isEditing}
+          />
+        )}
       </>
     );
   },
   {
-    // FIXME: allow to return properly
     returnTo({ params }) {
-      `return /listings/${params.slug}`;
+      return `/listings/${params.slug}`; // Fix the returnTo function to return the correct URL
     },
   }
 );
