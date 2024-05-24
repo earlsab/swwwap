@@ -5,38 +5,49 @@ import "./ItemForm.css";
 import Button from "../utilities/button/Button";
 import { CldUploadButton } from "next-cloudinary";
 
-function ItemForm({
-  toast = null,
-  data = null,
-  setIsEditing = null,
-  isEditing = null,
-}) {
+function ItemForm({ toast = null, data = null, isEditing = null }) {
   const [title, setTitle] = useState("");
-  const [id, setId] = useState("");
   const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
+  const [brand, setBrand] = useState(""); // Add brand state
+  const [yearsOfOwnership, setYearsOfOwnership] = useState(0); // Add yearsOfOwnership state
+  const [rfs, setRfs] = useState(""); // Add rfs state
+  const [price, setPrice] = useState(0);
   const [imageUrl, setImageUrl] = useState("");
+  const [id, setId] = useState("");
   const router = useRouter();
-  // if (data != null) {
-  //   setTitle(data.protected.title);
-  //   setDescription(data.protected.description);
-  //   setPrice(data.protected.price);
-  // }
+  // console.log(isEditing);
 
-  const handleSubmit = async (e) => {
-    // console.log("Form submitted:", { title, description, price });
-    e.preventDefault();
+  useEffect(() => {
+    if (data != null) {
+      setId(data.protected._id);
+      setTitle(data.protected.title);
+      setDescription(data.protected.description);
+      setBrand(data.protected.brand);
+      setYearsOfOwnership(data.protected.yearsOfOwnership);
+      setRfs(data.protected.rfs);
+      setPrice(data.protected.price);
+      setImageUrl(data.protected.imageUrl);
+    }
+  }, []);
+  // console.log(isEditing);
 
-    // ADD MODE
-    if (!isEditing) {
+  let handleSubmit;
+  if (!isEditing) {
+    handleSubmit = async (e) => {
+      e.preventDefault();
+
+      // ADD MODE
       try {
         const response = await axios.post("/api/protected/data/addItem", {
           title,
           description,
+          brand,
+          yearsOfOwnership,
+          rfs,
           price,
           imageUrl,
         });
-        console.log(response);
+        // console.log(response);
         const itemId = response.data.protected._id;
         toast({
           type: "success",
@@ -53,43 +64,42 @@ function ItemForm({
         });
         console.error("Error:", error);
       }
-    } else {
-      // EDIT MODE
+    };
+  } else {
+    handleSubmit = async (e) => {
+      e.preventDefault();
+
       try {
         const response = await axios.put("/api/protected/data/editItem", {
           id,
           title,
           description,
+          brand,
+          yearsOfOwnership,
+          rfs,
           price,
+          imageUrl,
         });
-        setIsEditing(false);
+
+        // setIsEditing(false);
         toast({
           type: "success",
           message:
             "Item added successfully! You will be redirected to the created page.",
         });
         setTimeout(() => {
-          router.push(`/listings/${itemId}`);
+          router.push(`/listings/${id}`);
         }, 1000);
       } catch {
         toast({
           type: "error",
-          message: "An error occurred. Please try again later.",
+          message: `An error occurred. Please try again later.`,
         });
-        console.error("Error:", error);
+        console.error("Error:", e);
       }
-    }
-  };
+    };
+  }
 
-  useEffect(() => {
-    if (data != null) {
-      console.log(data.protected);
-      setTitle(data.protected.title);
-      setDescription(data.protected.description);
-      setPrice(data.protected.price);
-      setId(data.protected._id);
-    }
-  }, []);
   return (
     <div className="containerForItemForm">
       <div className="HeaderForItemForm">
@@ -98,6 +108,7 @@ function ItemForm({
       <div className="BodyForItemForm">
         <div className="FormsCatalogueForItemForm">
           <form onSubmit={handleSubmit}>
+            <br />
             <label>
               Title:
               <br />
@@ -118,6 +129,36 @@ function ItemForm({
             </label>
             <br />
             <label>
+              Brand:
+              <br />
+              <input
+                type="text"
+                value={brand}
+                onChange={(e) => setBrand(e.target.value)}
+              />
+            </label>
+            <br />
+            <label>
+              Years of Ownership:
+              <br />
+              <input
+                type="number"
+                value={yearsOfOwnership}
+                onChange={(e) => setYearsOfOwnership(e.target.value)}
+              />
+            </label>
+            <br />
+            <label>
+              RFS (Reason for Selling):
+              <br />
+              <input
+                type="text"
+                value={rfs}
+                onChange={(e) => setRfs(e.target.value)}
+              />
+            </label>
+            <br />
+            <label>
               Price:
               <br />
               <input
@@ -126,21 +167,27 @@ function ItemForm({
                 onChange={(e) => setPrice(e.target.value)}
               />
             </label>
-
+            <br />
             <CldUploadButton
               uploadPreset="gos2dtki"
               onSuccess={(results) => {
                 setImageUrl(results.info.public_id);
-                console.log("Public ID", results.info.public_id);
+                // console.log("Public ID", results.info.public_id);
               }}
             />
             <br />
-            <br />
-            <Button
-              variant="longContained"
-              type="submit"
-              text="List for Sale"
-            />
+            {!isEditing && (
+              <Button
+                variant="longContained"
+                type="submit"
+                text="List for Sale"
+              />
+            )}
+            {isEditing && (
+              <button type="submit" className="button longContained">
+                Submit Edits
+              </button>
+            )}
           </form>
         </div>
         <div className="ImagecatalgueforItemForm"></div>

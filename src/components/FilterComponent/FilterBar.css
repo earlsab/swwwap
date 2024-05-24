@@ -1,0 +1,13 @@
+.containerForFilter {
+    background-color: white;
+    width: 100vh;
+}
+.itemsContainerForFilter {
+    display: flex;
+    padding: 10px;
+    overflow-x: scroll;
+    width: 150%;
+}
+::-webkit-scrollbar {
+    width: 0px;
+  }

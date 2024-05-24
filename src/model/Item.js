@@ -5,8 +5,12 @@ const Item = mongoose.Schema(
     owner: String,
     title: String,
     description: String,
-    price: Number,
+    brand: String,
+    yearsOfOwnership: Number,
+    rfs: String,
     imageUrl: String,
+    price: Number,
+    itemSellingStatus: Number, // 1 selling 0 sold
   },
   {
     timestamps: true,

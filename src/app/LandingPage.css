@@ -1,0 +1,37 @@
+body{
+    overflow: hidden;
+}
+.landingContainer {
+    display: flex;
+    flex-direction: row;
+    
+    justify-content: center;
+    height: 100vh;
+    padding: 20px;
+    overflow: hidden;
+}
+.landingImage {
+    margin-bottom: 20px;
+    width: 40%;
+}
+.landingLogo {
+    margin-right: 20px;
+}
+
+.landingTitles
+{
+    margin-top: 120px;
+    text-align: left;
+    width: 50%;
+}
+.landingHeading {
+    margin: 0;
+    font-size: 5em;
+    font-weight: 600;
+    color: #333;
+}
+.landingSubHeading {
+    margin: 0;
+    font-size: 1.2em;
+    color: #666;
+}
