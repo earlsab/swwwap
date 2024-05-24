@@ -13,25 +13,28 @@ const Item = ({
   content,
 }) => {
   return (
-    <button className="item-container">
-      {/* TODO: Auto adjust width and height based on image */}
-      <CldImage
-        src={imageUrl}
-        className="item-image"
-        alt={title}
-        width={100}
-        height={100}
-      ></CldImage>
-      
-      <div className="item-details">
-        <p className="item-owner">{ownerName}</p>
-        <h2 className="item-title">{title}</h2>
-        <p className="item-price">PHP {price}</p>
-        <p className="item-price-detail">• {priceDetail}</p>
-        <p className="item-quality">• {quality}</p>
-        <p className="item-content">• {content}</p>
-      </div>
-    </button>
+    <div className="item-container">
+      <button>
+        {/* TODO: Auto adjust width and height based on image */}
+        <CldImage
+          src={imageUrl}
+          className="item-image"
+          alt={title}
+          width={100}
+          height={100}
+        ></CldImage>
+        
+        <div className="item-details">
+          <p className="item-owner">{ownerName}</p>
+          <h2 className="item-title">{title}</h2>
+          <p className="item-price">PHP {price}</p>
+          <p className="item-price-detail">• {priceDetail}</p>
+          <p className="item-quality">• {quality}</p>
+          <p className="item-content">• {content}</p>
+        </div>
+      </button>
+    </div>
+    
   );
 };
 

@@ -1,0 +1,12 @@
+.SmallItem-container {
+    border: 1px solid #9e9e9e;
+    border-radius: 15px;
+    padding: 20px;
+    width: 250px;
+    height: 70px;
+    color:black;
+    margin-right: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
