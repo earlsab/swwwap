@@ -10,27 +10,21 @@ const HeaderBar = ({ texts , imageSrc }) => {
       };
     return (
         <div className={styles.header}>
-            { imageSrc === 'phone' ? (
-                <>
+            {imageSrc === 'phone' ? (
                     <Image 
-                    src={phoneIcon} 
-                    alt="Phone Icon"
-                    width={50}
-                    height={25}
-                    />  
-                </>
-                
-            ) : (
-                <>
+                        src={phoneIcon} 
+                        alt="Phone Icon"
+                        width={50}
+                        height={25}
+                    />
+                ) : imageSrc === 'fire' ? (
                     <Image 
-                    src="/fire.svg" 
-                    alt="Phone Icon"
-                    width={50}
-                    height={25}
-                    />  
-                </>
-                
-            )}
+                        src="/fire.svg" 
+                        alt="Fire Icon"
+                        width={50}
+                        height={25}
+                    />
+                ) : null}
             
             <h1>{texts}</h1>
             <Button variant="outlined" onClick={handleClick} text="View more" />

@@ -29,8 +29,8 @@ const FilterBar = ({ sortBy, spec, selfId }) => {
               ownerName={item.owner}
               title={item.title}
               price={item.price}
-              priceDetail={item.priceDetail}
-              quality={item.quality}
+              priceDetail={item.priceStatus}
+              quality={item.rfs}
               content={item.description}
             />
           </Link>

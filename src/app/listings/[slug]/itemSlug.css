@@ -90,6 +90,10 @@
     font-size: 30px;
     color: #28cb8b;
 }
+.priceForEachItemBad {
+  font-size: 30px;
+    color: #cb2828;
+}
 .FilterViewerForEachItem
 {
   white-space: nowrap;
