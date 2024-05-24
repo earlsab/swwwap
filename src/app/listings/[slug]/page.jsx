@@ -1,7 +1,7 @@
 "use client";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import Link from "next/link";
-
+import { useRouter } from "next/navigation";
 import useSWR from "swr";
 import ItemForm from "@/components/ItemForm/ItemForm"; // Import the ItemForm component
 import { useState } from "react";
@@ -19,6 +19,7 @@ const fetcher = async (uri) => {
 export default withPageAuthRequired(
   function Item({ params }) {
     const [isEditing, setIsEditing] = useState(false); // Add state for editing
+    const router = useRouter();
 
     const { data, error } = useSWR(
       `/api/protected/data/fetchItem?id=${params.slug}`,
@@ -40,13 +41,22 @@ export default withPageAuthRequired(
     return (
       <>
       <div className="containerForEachItem">
+      <Button variant="outlined" onClick={() => router.back()} text="Back" />
         <div className="headerForEachItem">
         
         <div className="headerTitlesForEachItem">
+        
           <p className="ownerForEachItem">{data.protected.owner}</p>
           <p className="titleForEachItem">{data.protected.title}</p>
           <p className="priceForEachItem">PHP {data.protected.price}</p>
           <div className="headerButtonHolderForEachItem">
+          {data.protected && data.isEditable ? (
+            <>
+              <Button variant="longCongtainedBlue" text="Mark as Sold" />
+            </>
+            
+          )
+          : (
             <Button variant="longContained" 
             onClick={() => {
               const subject = `Inquiry about ${data.protected.title}`;
@@ -54,6 +64,8 @@ export default withPageAuthRequired(
               window.location.href = `mailto:${data.protected.owner}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
             }} 
             text="Contact Seller" />
+          )}
+            
           </div>
         </div>
 
@@ -69,7 +81,7 @@ export default withPageAuthRequired(
 
         <div className="detailsContainerForEachItem">
           <h1>Basic Details</h1>
-          <p><span>Brand:</span> {data.protected.brand}</p>
+          <p><span>Brand:</span> {data.protected.brand}</p><br/>
           <p><span>Device Description: <br/></span>{data.protected.description}</p>
           <br/>
           <h1>Condition</h1>
@@ -80,37 +92,18 @@ export default withPageAuthRequired(
           <br/>
           <br/>
           <br/>
-          <br/>
-          <br/>
-          <br/>
+          
         </div>
         
         
 
         {data.protected && data.isEditable && (
           <>
-            <button
-              style={{
-                backgroundColor: "blue",
-                color: "white",
-                padding: "10px",
-                borderRadius: "5px",
-              }}
-              onClick={handleEdit}
-            >
-              Edit
-            </button>
-            <button
-              style={{
-                backgroundColor: "red",
-                color: "white",
-                padding: "10px",
-                borderRadius: "5px",
-              }}
-              onClick={handleDelete}
-            >
-              Delete
-            </button>
+          <div className="editAndDeleteButtonsForEachItem">
+            <Button variant="containedYellow" onClick={handleEdit} text="Edit Item" />
+            <Button variant="containedRed" onClick={handleDelete} text="Delete" />
+            
+          </div>
           </>
         )}
         {isEditing && (
@@ -120,7 +113,13 @@ export default withPageAuthRequired(
             isEditing={isEditing}
           />
         )}
+
         <div className="Recommendation">
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
         <span className="reccomendationText">Recommended items based on price: </span>
           <div className="FilterViewerForEachItem">
           
