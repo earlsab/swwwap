@@ -10,7 +10,7 @@ import Item from "@/components/item/Item";
 import FeaturedBar from "@/components/FeaturedBar/FeaturedBar";
 import "./listings.css";
 import SellItemBar from "@/components/SellItemBar/SellItemBar";
-
+import NewListBar from "@/components/NewListBar/NewListBar";
 // DONE: Secure page behind auth
 
 // app/products/page.jsx
@@ -45,8 +45,10 @@ export default withPageAuthRequired(
     return (
       <>
         <SellItemBar />
+        <NewListBar/>
         <div className="container2">
           <FeaturedBar/>
+          
         </div>
       </>
       

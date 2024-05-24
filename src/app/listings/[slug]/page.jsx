@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import useSWR from "swr";
 import ItemForm from "@/components/ItemForm/ItemForm"; // Import the ItemForm component
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import "./itemSlug.css";
 import { CldImage } from "next-cloudinary";
@@ -18,7 +18,8 @@ const fetcher = async (uri) => {
 
 export default withPageAuthRequired(
   function Item({ params }) {
-    const [isEditing, setIsEditing] = useState(false); // Add state for editing
+    const [sellingState, setSellingState] = useState(); // Add state for editing
+
     const router = useRouter();
 
     const { data, error } = useSWR(
@@ -44,6 +45,31 @@ export default withPageAuthRequired(
       router.push("/listings"); // Redirect to the listings page after deleting the item
     }
 
+    async function handleToggleStatus() {
+      await axios.put(`/api/protected/data/toggleSold?id=${params.slug}`);
+      console.log(sellingState);
+      if (sellingState == null) {
+        if (data.protected.itemSellingStatus == 1) {
+          setSellingState(0);
+        } else {
+          setSellingState(1);
+        }
+      } else {
+        if (sellingState == 1) {
+          setSellingState(0);
+        } else {
+          setSellingState(1);
+        }
+      }
+    }
+
+    let sellToggleTerm;
+    if (sellingState == 1) {
+      sellToggleTerm = "Sold";
+    } else {
+      sellToggleTerm = "Selling";
+    }
+
     return (
       <>
         <div className="containerForEachItem">
@@ -60,7 +86,11 @@ export default withPageAuthRequired(
               <div className="headerButtonHolderForEachItem">
                 {data.protected && data.isEditable ? (
                   <>
-                    <Button variant="longCongtainedBlue" text="Mark as Sold" />
+                    <Button
+                      onClick={handleToggleStatus}
+                      variant="longCongtainedBlue"
+                      text={`Mark as ${sellToggleTerm}`}
+                    />
                   </>
                 ) : (
                   <Button
@@ -153,7 +183,11 @@ export default withPageAuthRequired(
               Recommended items based on price:{" "}
             </span>
             <div className="FilterViewerForEachItem">
-              <FilterBar sortBy="filterByPrice" spec={data.protected.price} />
+              <FilterBar
+                sortBy="filterByPrice"
+                spec={data.protected.price}
+                selfId={data.protected._id}
+              />
             </div>
           </div>
 
@@ -162,7 +196,11 @@ export default withPageAuthRequired(
               Recommended items based on brand:{" "}
             </span>
             <div className="brandFilterViewerForEachItem">
-              <FilterBar sortBy="filterByBrand" spec={data.protected.brand} />
+              <FilterBar
+                sortBy="filterByBrand"
+                spec={data.protected.brand}
+                selfId={data.protected._id}
+              />
             </div>
           </div>
         </div>

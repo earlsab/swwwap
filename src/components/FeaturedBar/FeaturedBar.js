@@ -15,6 +15,8 @@ const FeaturedBar = () => {
     "/api/protected/data/fetchList?sortBy=createdDesc",
     fetcher
   );
+  // Example Filter?
+  // `/api/protected/data/fetchList?filterByBrand=Apple&filterByBrand=Samsung&filterByPriceMin=500&filterByPriceMax=1000`,
   //   const { data, error } = useSWR(
   //     "/api/protected/data/fetchList?filterByPrice=500",
   //     fetcher
@@ -28,7 +30,7 @@ const FeaturedBar = () => {
 
   return (
     <div className="container3">
-      <HeaderBar />
+      <HeaderBar texts={"Featured"} imageSrc={"phone"} />
       <div className="itemsContainer">
         {data.protected.map((item) => (
           <Link key={item._id} href={`listings/${item._id}`}>

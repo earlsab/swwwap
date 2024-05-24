@@ -13,31 +13,40 @@ export const GET = withApiAuthRequired(async function fetchItems(req) {
   await connectDB();
   const { searchParams } = new URL(req.url);
 
+  const filterOutSelf = searchParams.get("filterOutSelf");
   const filterByBrand = searchParams.get("filterByBrand");
+  const filterByOwner = searchParams.get("filterByOwner");
+  const filterByPrice = parseInt(searchParams.get("filterByPrice"));
+  const sortByNew = searchParams.get("sortBy");
+
+  let query = { itemSellingStatus: { $ne: 0 } }; // exclude sold items
+  query = { ...query, _id: { $ne: filterOutSelf } };
+
   if (filterByBrand) {
-    items = await ItemView.find({ brand: filterByBrand }).exec();
+    query = { ...query, brand: filterByBrand };
   }
 
-  const filterByPrice = parseInt(searchParams.get("filterByPrice"));
-  console.log(filterByPrice);
-  const range = filterByPrice * 0.25; // get 10 percent
+  if (filterByOwner) {
+    query = { ...query, owner: filterByOwner };
+  }
 
+  const range = filterByPrice * 0.25; // get 10 percent
   const upperLimit = filterByPrice + range;
   const lowerLimit = filterByPrice - range;
   console.log(filterByPrice, upperLimit, lowerLimit);
   if (filterByPrice) {
+    query = { ...query, price: { $lte: upperLimit, $gte: lowerLimit } };
+  }
+
+  if (sortByNew == "createdDesc") {
+    items = await ItemView.find({ ...query })
+      .sort({ createdAt: -1 })
+      .exec();
+  } else {
     items = await ItemView.find({
-      price: { $lte: upperLimit, $gte: lowerLimit },
+      ...query,
     }).exec();
   }
 
-  if (!filterByBrand && !filterByPrice) {
-    items = await ItemView.find({});
-  }
-
-  const sortByNew = searchParams.get("sortBy");
-  if (sortByNew == "createdDesc") {
-    items = await ItemView.find({}).sort({ createdAt: -1 }).exec();
-  }
   return NextResponse.json({ protected: items }, res);
 });
