@@ -32,6 +32,7 @@ const FilterBar = ({ sortBy, spec, selfId }) => {
               priceDetail={item.priceStatus}
               quality={item.rfs}
               content={item.description}
+              sellingStatus={item.itemSellingStatus}
             />
           </Link>
         ))}

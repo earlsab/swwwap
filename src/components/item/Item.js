@@ -11,6 +11,7 @@ const Item = ({
   priceDetail,
   quality,
   content,
+  sellingStatus
 }) => {
   return (
     <div>
@@ -26,7 +27,12 @@ const Item = ({
         
         <div className="item-details">
           <p className="item-owner">{ownerName}</p>
-          <h2 className="item-title">{title}</h2>
+          {sellingStatus === 0 ? (<h2 className="item-title" style={{ textDecoration: 'line-through' }} >{title}</h2>)
+          :
+          (
+            <h2 className="item-title">{title}</h2>
+          )}
+          
           
           {priceDetail === "Market Price" ? (
             <>
@@ -35,6 +41,7 @@ const Item = ({
           ):(
             <p className="item-priceBad">PHP {price}</p>
           )}
+
           <p className="item-price-detail">• {priceDetail}</p>
           
           <p className="item-quality">• {quality}</p>
