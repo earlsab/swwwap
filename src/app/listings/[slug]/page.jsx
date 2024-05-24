@@ -183,7 +183,11 @@ export default withPageAuthRequired(
               Recommended items based on price:{" "}
             </span>
             <div className="FilterViewerForEachItem">
-              <FilterBar sortBy="filterByPrice" spec={data.protected.price} />
+              <FilterBar
+                sortBy="filterByPrice"
+                spec={data.protected.price}
+                selfId={data.protected._id}
+              />
             </div>
           </div>
 
@@ -192,7 +196,11 @@ export default withPageAuthRequired(
               Recommended items based on brand:{" "}
             </span>
             <div className="brandFilterViewerForEachItem">
-              <FilterBar sortBy="filterByBrand" spec={data.protected.brand} />
+              <FilterBar
+                sortBy="filterByBrand"
+                spec={data.protected.brand}
+                selfId={data.protected._id}
+              />
             </div>
           </div>
         </div>
