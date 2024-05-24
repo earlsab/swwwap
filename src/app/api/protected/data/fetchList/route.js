@@ -1,6 +1,7 @@
 // Some code from Copilot
 import connectDB from "@/lib/connectDB";
 import Item from "@/model/Item";
+import ItemView from "@/model/ItemWithMP";
 import { withApiAuthRequired, getSession } from "@auth0/nextjs-auth0";
 import { NextResponse } from "next/server";
 // import connectDB from "src/lib/connectDB.js";
@@ -13,7 +14,7 @@ export const GET = withApiAuthRequired(async function fetchItems(req) {
 
   const filterByBrand = searchParams.get("filterByBrand");
   if (filterByBrand) {
-    items = await Item.find({ brand: filterByBrand }).exec();
+    items = await ItemView.find({ brand: filterByBrand }).exec();
   }
 
   const filterByPrice = parseInt(searchParams.get("filterByPrice"));
@@ -24,13 +25,13 @@ export const GET = withApiAuthRequired(async function fetchItems(req) {
   const lowerLimit = filterByPrice - range;
   console.log(filterByPrice, upperLimit, lowerLimit);
   if (filterByPrice) {
-    items = await Item.find({
+    items = await ItemView.find({
       price: { $lte: upperLimit, $gte: lowerLimit },
     }).exec();
   }
 
   if (!filterByBrand && !filterByPrice) {
-    items = await Item.find({});
+    items = await ItemView.find({});
   }
   return NextResponse.json({ protected: items }, res);
 });

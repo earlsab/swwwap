@@ -11,14 +11,11 @@ const fetcher = async (uri) => {
 };
 
 const FeaturedBar = () => {
-  const { data, error } = useSWR(
-    "/api/protected/data/fetchList",
-    fetcher
-  );
-//   const { data, error } = useSWR(
-//     "/api/protected/data/fetchList?filterByPrice=500",
-//     fetcher
-//   );
+  const { data, error } = useSWR("/api/protected/data/fetchList", fetcher);
+  //   const { data, error } = useSWR(
+  //     "/api/protected/data/fetchList?filterByPrice=500",
+  //     fetcher
+  //   );
   //   const { data, error } = useSWR(
   //     "/api/protected/data/fetchList?filterByBrand=Apple",
   //     fetcher
@@ -38,7 +35,7 @@ const FeaturedBar = () => {
               ownerName={item.owner}
               title={item.title}
               price={item.price}
-              priceDetail={item.priceDetail}
+              priceDetail={item.priceStatus}
               quality={item.quality}
               content={item.description}
             />
