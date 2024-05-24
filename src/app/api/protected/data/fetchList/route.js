@@ -7,6 +7,7 @@ import { NextResponse } from "next/server";
 // import connectDB from "src/lib/connectDB.js";
 
 export const GET = withApiAuthRequired(async function fetchItems(req) {
+  // TODO: Stack Filters and Sorts
   let items;
   const res = new NextResponse();
   await connectDB();
