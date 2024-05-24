@@ -10,7 +10,7 @@ const Item = mongoose.Schema(
     rfs: String,
     imageUrl: String,
     price: Number,
-    itemStatus: String,
+    itemSellingStatus: Number, // 1 selling 0 sold
   },
   {
     timestamps: true,

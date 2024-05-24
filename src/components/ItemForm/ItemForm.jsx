@@ -18,7 +18,6 @@ function ItemForm({
   const [rfs, setRfs] = useState(""); // Add rfs state
   const [price, setPrice] = useState(0);
   const [imageUrl, setImageUrl] = useState("");
-  const [itemStatus, setItemStatus] = useState(""); // Add status state
   const router = useRouter();
 
   const handleSubmit = async (e) => {
@@ -35,7 +34,6 @@ function ItemForm({
           rfs,
           price,
           imageUrl,
-          itemStatus: itemStatus,
         });
         console.log(response);
         const itemId = response.data.protected._id;
@@ -66,7 +64,6 @@ function ItemForm({
           rfs,
           price,
           imageUrl,
-          itemStatus,
         });
         setIsEditing(false);
         toast({
@@ -97,7 +94,6 @@ function ItemForm({
       setRfs(data.protected.rfs);
       setPrice(data.protected.price);
       setImageUrl(data.protected.imageUrl);
-      setItemStatus(data.protected.status);
     }
   }, []);
 
@@ -176,17 +172,7 @@ function ItemForm({
                 console.log("Public ID", results.info.public_id);
               }}
             />
-            <br />
-            <label>
-              Status:
-              <br />
-              <input
-                type="text"
-                value={itemStatus}
-                onChange={(e) => setItemStatus(e.target.value)}
-              />
-            </label>
-            <br />
+
             <br />
             <Button
               variant="longContained"

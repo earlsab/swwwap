@@ -14,16 +14,8 @@ export const POST = withApiAuthRequired(async function addItem(req) {
   await connectDB();
   const res = await req.json();
   console.log(res);
-  const {
-    title,
-    description,
-    price,
-    imageUrl,
-    brand,
-    yearsOfOwnership,
-    rfs,
-    itemStatus,
-  } = res;
+  const { title, description, price, imageUrl, brand, yearsOfOwnership, rfs } =
+    res;
 
   const item = new Item({
     owner: user.email,
@@ -34,8 +26,9 @@ export const POST = withApiAuthRequired(async function addItem(req) {
     rfs: rfs,
     imageUrl: imageUrl,
     price: price,
-    itemStatus: itemStatus,
+    itemSellingStatus: 1, // default to selling
   });
+  console.log(item);
   const itemtoSave = await item.save();
   return NextResponse.json({ protected: itemtoSave }, res);
 });
