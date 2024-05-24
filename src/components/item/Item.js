@@ -27,8 +27,16 @@ const Item = ({
         <div className="item-details">
           <p className="item-owner">{ownerName}</p>
           <h2 className="item-title">{title}</h2>
-          <p className="item-price">PHP {price}</p>
+          
+          {priceDetail === "Market Price" ? (
+            <>
+            <p className="item-price">PHP {price}</p>
+            </>
+          ):(
+            <p className="item-priceBad">PHP {price}</p>
+          )}
           <p className="item-price-detail">• {priceDetail}</p>
+          
           <p className="item-quality">• {quality}</p>
           <p className="item-content">• {content}</p>
         </div>

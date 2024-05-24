@@ -11,7 +11,8 @@ const fetcher = async (uri) => {
   };
 
 const NewListBar = () => {
-    const { data, error } = useSWR("/api/protected/data/fetchList", fetcher);
+    const { data, error } = useSWR("/api/protected/data/fetchList?sortBy=createdDesc", fetcher);
+
     if (error) return <div>oops... {error.message}</div>;
     if (data === undefined) return <div>Loading...</div>;
   return (
