@@ -108,3 +108,10 @@
   font-weight: 500;
   
 }
+
+.editAndDeleteButtonsForEachItem {
+  flex-direction: row;
+  padding: 20px;
+  gap: 20px;
+  display: flex;
+}
