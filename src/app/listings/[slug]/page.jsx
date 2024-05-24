@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import useSWR from "swr";
 import ItemForm from "@/components/ItemForm/ItemForm"; // Import the ItemForm component
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import "./itemSlug.css";
 import { CldImage } from "next-cloudinary";
@@ -18,7 +18,8 @@ const fetcher = async (uri) => {
 
 export default withPageAuthRequired(
   function Item({ params }) {
-    const [isEditing, setIsEditing] = useState(false); // Add state for editing
+    const [selling, setIsSelling] = useState(1); // Add state for editing
+
     const router = useRouter();
 
     const { data, error } = useSWR(
@@ -64,7 +65,11 @@ export default withPageAuthRequired(
               <div className="headerButtonHolderForEachItem">
                 {data.protected && data.isEditable ? (
                   <>
-                    <Button variant="longCongtainedBlue" text="Mark as Sold" />
+                    <Button
+                      onClick={handleToggleStatus}
+                      variant="longCongtainedBlue"
+                      text="Mark as Sold"
+                    />
                   </>
                 ) : (
                   <Button
