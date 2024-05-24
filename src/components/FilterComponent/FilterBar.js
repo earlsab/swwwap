@@ -11,7 +11,9 @@ const fetcher = async (uri) => {
 
 const FilterBar = ({ sortBy, spec, selfId }) => {
   const { data, error } = useSWR(
-    `/api/protected/data/fetchList?${sortBy}=${spec}&filterOutSelf=${selfId}`,
+    `/api/protected/data/fetchList?${sortBy}=${spec}${
+      selfId ? `&filterOutSelf=${selfId}` : ""
+    }`,
     fetcher
   );
   if (error) return <div>oops... {error.message}</div>;
