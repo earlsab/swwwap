@@ -22,7 +22,10 @@ export const GET = withApiAuthRequired(async function fetchItems(req) {
   ); // Remove For Sale Items (Only Sold)
   const sortByNew = searchParams.get("sortBy");
 
-  let query = { _id: { $ne: filterOutSelf } };
+  let query = {};
+  if (filterOutSelf) {
+    query = { _id: { $ne: filterOutSelf } };
+  }
 
   if (filterByBrand) {
     query = { ...query, brand: filterByBrand };
@@ -31,16 +34,16 @@ export const GET = withApiAuthRequired(async function fetchItems(req) {
   // Show everthing if owner, show only unsold if not
   if (filterByOwner) {
     query = { ...query, owner: filterByOwner };
-    if (showOnlySellingStatus == null); // default no filter if owner
+    if (showOnlySellingStatus === null); // default no filter if owner
     // Explicit IFS
     if (showOnlySellingStatus == 1) {
       // remove
-      query = { ...query, itemSellingStatus: { $e: 1 } };
+      query = { ...query, itemSellingStatus: { $ne: 0 } };
     } else if (showOnlySellingStatus == 0) {
-      query = { ...query, itemSellingStatus: { $e: 0 } };
+      query = { ...query, itemSellingStatus: { $ne: 1 } };
     }
   } else {
-    query = { ...query, itemSellingStatus: { $e: 1 } }; // include only selling items
+    query = { ...query, itemSellingStatus: { $ne: 0 } }; // BY DEFAULT include only selling items
   }
 
   const range = filterByPrice * 0.25; // get 10 percent
