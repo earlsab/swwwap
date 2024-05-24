@@ -12,19 +12,16 @@ function ItemForm({
   isEditing = null,
 }) {
   const [title, setTitle] = useState("");
-  const [id, setId] = useState("");
   const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
+  const [brand, setBrand] = useState(""); // Add brand state
+  const [yearsOfOwnership, setYearsOfOwnership] = useState(0); // Add yearsOfOwnership state
+  const [rfs, setRfs] = useState(""); // Add rfs state
+  const [price, setPrice] = useState(0);
   const [imageUrl, setImageUrl] = useState("");
+  const [itemStatus, setItemStatus] = useState(""); // Add status state
   const router = useRouter();
-  // if (data != null) {
-  //   setTitle(data.protected.title);
-  //   setDescription(data.protected.description);
-  //   setPrice(data.protected.price);
-  // }
 
   const handleSubmit = async (e) => {
-    // console.log("Form submitted:", { title, description, price });
     e.preventDefault();
 
     // ADD MODE
@@ -33,8 +30,12 @@ function ItemForm({
         const response = await axios.post("/api/protected/data/addItem", {
           title,
           description,
+          brand,
+          yearsOfOwnership,
+          rfs,
           price,
           imageUrl,
+          itemStatus: itemStatus,
         });
         console.log(response);
         const itemId = response.data.protected._id;
@@ -60,7 +61,12 @@ function ItemForm({
           id,
           title,
           description,
+          brand,
+          yearsOfOwnership,
+          rfs,
           price,
+          imageUrl,
+          itemStatus,
         });
         setIsEditing(false);
         toast({
@@ -86,10 +92,15 @@ function ItemForm({
       console.log(data.protected);
       setTitle(data.protected.title);
       setDescription(data.protected.description);
+      setBrand(data.protected.brand);
+      setYearsOfOwnership(data.protected.yearsOfOwnership);
+      setRfs(data.protected.rfs);
       setPrice(data.protected.price);
-      setId(data.protected._id);
+      setImageUrl(data.protected.imageUrl);
+      setItemStatus(data.protected.status);
     }
   }, []);
+
   return (
     <div className="containerForItemForm">
       <div className="HeaderForItemForm">
@@ -98,6 +109,7 @@ function ItemForm({
       <div className="BodyForItemForm">
         <div className="FormsCatalogueForItemForm">
           <form onSubmit={handleSubmit}>
+            <br />
             <label>
               Title:
               <br />
@@ -118,6 +130,36 @@ function ItemForm({
             </label>
             <br />
             <label>
+              Brand:
+              <br />
+              <input
+                type="text"
+                value={brand}
+                onChange={(e) => setBrand(e.target.value)}
+              />
+            </label>
+            <br />
+            <label>
+              Years of Ownership:
+              <br />
+              <input
+                type="number"
+                value={yearsOfOwnership}
+                onChange={(e) => setYearsOfOwnership(e.target.value)}
+              />
+            </label>
+            <br />
+            <label>
+              RFS (Reason for Selling):
+              <br />
+              <input
+                type="text"
+                value={rfs}
+                onChange={(e) => setRfs(e.target.value)}
+              />
+            </label>
+            <br />
+            <label>
               Price:
               <br />
               <input
@@ -126,7 +168,7 @@ function ItemForm({
                 onChange={(e) => setPrice(e.target.value)}
               />
             </label>
-
+            <br />
             <CldUploadButton
               uploadPreset="gos2dtki"
               onSuccess={(results) => {
@@ -134,6 +176,16 @@ function ItemForm({
                 console.log("Public ID", results.info.public_id);
               }}
             />
+            <br />
+            <label>
+              Status:
+              <br />
+              <input
+                type="text"
+                value={itemStatus}
+                onChange={(e) => setItemStatus(e.target.value)}
+              />
+            </label>
             <br />
             <br />
             <Button
