@@ -19,15 +19,17 @@ export const GET = withApiAuthRequired(async function fetchItems(req) {
   const filterByPrice = parseInt(searchParams.get("filterByPrice"));
   const sortByNew = searchParams.get("sortBy");
 
-  let query = { itemSellingStatus: { $ne: 0 } }; // exclude sold items
-  query = { ...query, _id: { $ne: filterOutSelf } };
+  let query = { _id: { $ne: filterOutSelf } };
 
   if (filterByBrand) {
     query = { ...query, brand: filterByBrand };
   }
 
+  // Show everthing if owner, show only unsold if not
   if (filterByOwner) {
     query = { ...query, owner: filterByOwner };
+  } else {
+    query = { ...query, itemSellingStatus: { $ne: 0 } }; // exclude sold items
   }
 
   const range = filterByPrice * 0.25; // get 10 percent
