@@ -44,6 +44,10 @@ export default withPageAuthRequired(
       router.push("/listings"); // Redirect to the listings page after deleting the item
     }
 
+    async function handleToggleStatus() {
+      await axios.put(`/api/protected/data/toggleSold?id=${params.slug}`);
+    }
+
     return (
       <>
         <div className="containerForEachItem">
