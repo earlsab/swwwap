@@ -37,5 +37,5 @@ export const PUT = withApiAuthRequired(async function updateItem(req) {
   }
   // Save the updated item
   const updatedItem = await existingItem.save();
-  return NextResponse.json({ protected: updatedItem }, res);
+  return NextResponse.json({ protected: updatedItem });
 });

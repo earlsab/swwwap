@@ -18,7 +18,7 @@ const fetcher = async (uri) => {
 
 export default withPageAuthRequired(
   function Item({ params }) {
-    const [selling, setIsSelling] = useState(1); // Add state for editing
+    const [sellingState, setSellingState] = useState(); // Add state for editing
 
     const router = useRouter();
 
@@ -47,6 +47,27 @@ export default withPageAuthRequired(
 
     async function handleToggleStatus() {
       await axios.put(`/api/protected/data/toggleSold?id=${params.slug}`);
+      console.log(sellingState);
+      if (sellingState == null) {
+        if (data.protected.itemSellingStatus == 1) {
+          setSellingState(0);
+        } else {
+          setSellingState(1);
+        }
+      } else {
+        if (sellingState == 1) {
+          setSellingState(0);
+        } else {
+          setSellingState(1);
+        }
+      }
+    }
+
+    let sellToggleTerm;
+    if (sellingState == 1) {
+      sellToggleTerm = "Sold";
+    } else {
+      sellToggleTerm = "Selling";
     }
 
     return (
@@ -68,7 +89,7 @@ export default withPageAuthRequired(
                     <Button
                       onClick={handleToggleStatus}
                       variant="longCongtainedBlue"
-                      text="Mark as Sold"
+                      text={`Mark as ${sellToggleTerm}`}
                     />
                   </>
                 ) : (
