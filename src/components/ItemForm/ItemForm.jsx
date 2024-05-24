@@ -5,12 +5,7 @@ import "./ItemForm.css";
 import Button from "../utilities/button/Button";
 import { CldUploadButton } from "next-cloudinary";
 
-function ItemForm({
-  toast = null,
-  data = null,
-  setIsEditing = null,
-  isEditing = null,
-}) {
+function ItemForm({ toast = null, data = null, isEditing = null }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [brand, setBrand] = useState(""); // Add brand state
@@ -18,13 +13,30 @@ function ItemForm({
   const [rfs, setRfs] = useState(""); // Add rfs state
   const [price, setPrice] = useState(0);
   const [imageUrl, setImageUrl] = useState("");
+  const [id, setId] = useState("");
   const router = useRouter();
+  // console.log(isEditing);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    if (data != null) {
+      setId(data.protected._id);
+      setTitle(data.protected.title);
+      setDescription(data.protected.description);
+      setBrand(data.protected.brand);
+      setYearsOfOwnership(data.protected.yearsOfOwnership);
+      setRfs(data.protected.rfs);
+      setPrice(data.protected.price);
+      setImageUrl(data.protected.imageUrl);
+    }
+  }, []);
+  // console.log(isEditing);
 
-    // ADD MODE
-    if (!isEditing) {
+  let handleSubmit;
+  if (!isEditing) {
+    handleSubmit = async (e) => {
+      e.preventDefault();
+
+      // ADD MODE
       try {
         const response = await axios.post("/api/protected/data/addItem", {
           title,
@@ -35,7 +47,7 @@ function ItemForm({
           price,
           imageUrl,
         });
-        console.log(response);
+        // console.log(response);
         const itemId = response.data.protected._id;
         toast({
           type: "success",
@@ -52,8 +64,11 @@ function ItemForm({
         });
         console.error("Error:", error);
       }
-    } else {
-      // EDIT MODE
+    };
+  } else {
+    handleSubmit = async (e) => {
+      e.preventDefault();
+
       try {
         const response = await axios.put("/api/protected/data/editItem", {
           id,
@@ -65,37 +80,25 @@ function ItemForm({
           price,
           imageUrl,
         });
-        setIsEditing(false);
+
+        // setIsEditing(false);
         toast({
           type: "success",
           message:
             "Item added successfully! You will be redirected to the created page.",
         });
         setTimeout(() => {
-          router.push(`/listings/${itemId}`);
+          router.push(`/listings/${id}`);
         }, 1000);
       } catch {
         toast({
           type: "error",
-          message: "An error occurred. Please try again later.",
+          message: `An error occurred. Please try again later.`,
         });
-        console.error("Error:", error);
+        console.error("Error:", e);
       }
-    }
-  };
-
-  useEffect(() => {
-    if (data != null) {
-      console.log(data.protected);
-      setTitle(data.protected.title);
-      setDescription(data.protected.description);
-      setBrand(data.protected.brand);
-      setYearsOfOwnership(data.protected.yearsOfOwnership);
-      setRfs(data.protected.rfs);
-      setPrice(data.protected.price);
-      setImageUrl(data.protected.imageUrl);
-    }
-  }, []);
+    };
+  }
 
   return (
     <div className="containerForItemForm">
@@ -169,16 +172,22 @@ function ItemForm({
               uploadPreset="gos2dtki"
               onSuccess={(results) => {
                 setImageUrl(results.info.public_id);
-                console.log("Public ID", results.info.public_id);
+                // console.log("Public ID", results.info.public_id);
               }}
             />
-
             <br />
-            <Button
-              variant="longContained"
-              type="submit"
-              text="List for Sale"
-            />
+            {!isEditing && (
+              <Button
+                variant="longContained"
+                type="submit"
+                text="List for Sale"
+              />
+            )}
+            {isEditing && (
+              <button type="submit" className="button longContained">
+                Submit Edits
+              </button>
+            )}
           </form>
         </div>
         <div className="ImagecatalgueforItemForm"></div>

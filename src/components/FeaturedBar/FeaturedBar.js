@@ -11,7 +11,10 @@ const fetcher = async (uri) => {
 };
 
 const FeaturedBar = () => {
-  const { data, error } = useSWR("/api/protected/data/fetchList", fetcher);
+  const { data, error } = useSWR(
+    "/api/protected/data/fetchList?sortBy=createdDesc",
+    fetcher
+  );
   //   const { data, error } = useSWR(
   //     "/api/protected/data/fetchList?filterByPrice=500",
   //     fetcher

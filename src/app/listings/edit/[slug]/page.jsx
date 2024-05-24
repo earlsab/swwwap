@@ -1,12 +1,28 @@
 "use client";
+import ItemForm from "@/components/ItemForm/ItemForm";
+import toastSettings from "@/components/toastySettings";
 import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import { useUser } from "@auth0/nextjs-auth0/client";
+import { ToastContainer, toast } from "react-toastify";
 import useSWR from "swr";
 
 const fetcher = async (uri) => {
   const response = await fetch(uri);
   return response.json();
 };
+
+function handleToast({ type, message }) {
+  switch (type) {
+    case "success":
+      toast.success(message, toastSettings);
+      break;
+    case "error":
+      toast.error(message, toastSettings);
+      break;
+    default:
+      toast(message, toastSettings);
+  }
+}
 
 export default withPageAuthRequired(
   function EditItem({ params }) {
@@ -28,6 +44,7 @@ export default withPageAuthRequired(
     // console.log("LOOK HERE!");
     // console.log(data.protected.owner);
     // console.log(user.email);
+    // console.log(data);
     if (data.protected.owner == user.email) {
       EDITSTATE = "CAN EDIT!";
     }
@@ -38,7 +55,8 @@ export default withPageAuthRequired(
             {key}:{value}
           </div>
         ))} */}
-        {EDITSTATE}
+        <ItemForm data={data} isEditing={true} toast={handleToast} />
+        {/* <ToastContainer></ToastContainer> */}
       </>
     );
   },

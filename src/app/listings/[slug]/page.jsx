@@ -26,11 +26,17 @@ export default withPageAuthRequired(
       fetcher
     );
 
-    if (error) return (<div>oops... {error.message} {data}</div>);
+    if (error)
+      return (
+        <div>
+          oops... {error.message} {data}
+        </div>
+      );
     if (data === undefined) return <div>Loading...</div>;
 
     function handleEdit() {
-      if (!isEditing) setIsEditing(true); // Set isEditing to true when edit button is clicked
+      router.push(`/listings/edit/${params.slug}`); // Redirect to the listings page after deleting the item
+      // if (!isEditing) setIsEditing(true); // Set isEditing to true when edit button is clicked
     }
 
     async function handleDelete() {
@@ -40,103 +46,126 @@ export default withPageAuthRequired(
 
     return (
       <>
-      <div className="containerForEachItem">
-      <Button variant="outlined" onClick={() => router.back()} text="Back" />
-        <div className="headerForEachItem">
-        
-        <div className="headerTitlesForEachItem">
-        
-          <p className="ownerForEachItem">{data.protected.owner}</p>
-          <p className="titleForEachItem">{data.protected.title}</p>
-          <p className="priceForEachItem">PHP {data.protected.price}</p>
-          <div className="headerButtonHolderForEachItem">
-          {data.protected && data.isEditable ? (
+        <div className="containerForEachItem">
+          <Button
+            variant="outlined"
+            onClick={() => router.back()}
+            text="Back"
+          />
+          <div className="headerForEachItem">
+            <div className="headerTitlesForEachItem">
+              <p className="ownerForEachItem">{data.protected.owner}</p>
+              <p className="titleForEachItem">{data.protected.title}</p>
+              <p className="priceForEachItem">PHP {data.protected.price}</p>
+              <div className="headerButtonHolderForEachItem">
+                {data.protected && data.isEditable ? (
+                  <>
+                    <Button variant="longCongtainedBlue" text="Mark as Sold" />
+                  </>
+                ) : (
+                  <Button
+                    variant="longContained"
+                    onClick={() => {
+                      const subject = `Inquiry about ${data.protected.title}`;
+                      const body = `Hello,\n\nI am interested in your listing for ${data.protected.title} priced at PHP ${data.protected.price}. Please provide more details.\n\nThank you.`;
+                      window.location.href = `mailto:${
+                        data.protected.owner
+                      }?subject=${encodeURIComponent(
+                        subject
+                      )}&body=${encodeURIComponent(body)}`;
+                    }}
+                    text="Contact Seller"
+                  />
+                )}
+              </div>
+            </div>
+
+            <div className="imageContainerForEachItem">
+              <CldImage
+                src={data.protected.imageUrl}
+                alt={data.protected.title}
+                width={500}
+                height={500}
+              />
+            </div>
+          </div>
+
+          <div className="detailsContainerForEachItem">
+            <h1>Basic Details</h1>
+            <p>
+              <span>Brand:</span> {data.protected.brand}
+            </p>
+            <br />
+            <p>
+              <span>
+                Device Description: <br />
+              </span>
+              {data.protected.description}
+            </p>
+            <br />
+            <h1>Condition</h1>
+            <p>
+              <span>Years of Ownership: </span>
+              {data.protected.yearsOfOwnership}
+            </p>
+            <br />
+            <h1>Other Details</h1>
+            <p>
+              <span>Reason for Selling: </span>
+              {data.protected.rfs}
+            </p>
+            <br />
+            <br />
+            <br />
+          </div>
+
+          {data.protected && data.isEditable && (
             <>
-              <Button variant="longCongtainedBlue" text="Mark as Sold" />
+              <div className="editAndDeleteButtonsForEachItem">
+                <Button
+                  variant="containedYellow"
+                  onClick={handleEdit}
+                  text="Edit Item"
+                />
+                <Button
+                  variant="containedRed"
+                  onClick={handleDelete}
+                  text="Delete"
+                />
+              </div>
             </>
-            
-          )
-          : (
-            <Button variant="longContained" 
-            onClick={() => {
-              const subject = `Inquiry about ${data.protected.title}`;
-              const body = `Hello,\n\nI am interested in your listing for ${data.protected.title} priced at PHP ${data.protected.price}. Please provide more details.\n\nThank you.`;
-              window.location.href = `mailto:${data.protected.owner}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            }} 
-            text="Contact Seller" />
           )}
-            
+          {/* {isEditing && (
+            <ItemForm
+              data={data}
+              setIsEditing={setIsEditing}
+              isEditing={isEditing}
+            />
+          )} */}
+
+          <div className="Recommendation">
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <span className="reccomendationText">
+              Recommended items based on price:{" "}
+            </span>
+            <div className="FilterViewerForEachItem">
+              <FilterBar sortBy="filterByPrice" spec={data.protected.price} />
+            </div>
+          </div>
+
+          <div className="Recommendation">
+            <span className="reccomendationText">
+              Recommended items based on brand:{" "}
+            </span>
+            <div className="brandFilterViewerForEachItem">
+              <FilterBar sortBy="filterByBrand" spec={data.protected.brand} />
+            </div>
           </div>
         </div>
-
-        <div className="imageContainerForEachItem">
-          <CldImage
-            src={data.protected.imageUrl}
-            alt={data.protected.title}
-            width={500}
-            height={500}
-          />
-        </div>
-        </div>
-
-        <div className="detailsContainerForEachItem">
-          <h1>Basic Details</h1>
-          <p><span>Brand:</span> {data.protected.brand}</p><br/>
-          <p><span>Device Description: <br/></span>{data.protected.description}</p>
-          <br/>
-          <h1>Condition</h1>
-          <p><span>Years of Ownership: </span>{data.protected.yearsOfOwnership}</p>
-          <br/>
-          <h1>Other Details</h1>
-          <p><span>Reason for Selling: </span>{data.protected.rfs}</p>
-          <br/>
-          <br/>
-          <br/>
-          
-        </div>
-        
-        
-
-        {data.protected && data.isEditable && (
-          <>
-          <div className="editAndDeleteButtonsForEachItem">
-            <Button variant="containedYellow" onClick={handleEdit} text="Edit Item" />
-            <Button variant="containedRed" onClick={handleDelete} text="Delete" />
-            
-          </div>
-          </>
-        )}
-        {isEditing && (
-          <ItemForm
-            data={data}
-            setIsEditing={setIsEditing}
-            isEditing={isEditing}
-          />
-        )}
-
-        <div className="Recommendation">
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <span className="reccomendationText">Recommended items based on price: </span>
-          <div className="FilterViewerForEachItem">
-          
-          <FilterBar sortBy='filterByPrice' spec={data.protected.price} />
-          </div>
-        </div>
-        
-        <div className="Recommendation">
-        <span className="reccomendationText">Recommended items based on brand: </span>
-          <div className="brandFilterViewerForEachItem">
-          <FilterBar sortBy='filterByBrand' spec={data.protected.brand} />
-          </div>
-        </div>
-
-        
-      </div>
-        
       </>
     );
   },

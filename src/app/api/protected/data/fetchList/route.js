@@ -7,6 +7,7 @@ import { NextResponse } from "next/server";
 // import connectDB from "src/lib/connectDB.js";
 
 export const GET = withApiAuthRequired(async function fetchItems(req) {
+  // TODO: Stack Filters and Sorts
   let items;
   const res = new NextResponse();
   await connectDB();
@@ -32,6 +33,11 @@ export const GET = withApiAuthRequired(async function fetchItems(req) {
 
   if (!filterByBrand && !filterByPrice) {
     items = await ItemView.find({});
+  }
+
+  const sortByNew = searchParams.get("sortBy");
+  if (sortByNew == "createdDesc") {
+    items = await ItemView.find({}).sort({ createdAt: -1 }).exec();
   }
   return NextResponse.json({ protected: items }, res);
 });
