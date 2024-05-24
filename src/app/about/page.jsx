@@ -1,10 +1,24 @@
+"use client";
 import styles from './about.module.css';
+import Button from '@/components/utilities/button/Button';
+import { useRouter } from 'next/navigation';
 
 const About = () => {
+    const router = useRouter();
     return (
+        
         <div className={styles.container}>
+
+        <Button
+            variant="outlined"
+            onClick={() => router.back()}
+            text="Back"
+          />
+          <br/>
+                <br/>
             <h1 className={styles.title}>About Us</h1>
             <p className={styles.purpose}>
+                
                 Welcome to Swwwap! Our purpose is to provide a website to help you buy devices or sell one. We strive to offer high-quality content and services that meet the needs of our diverse audience. We care for the environment.
             </p>
             <h2 className={styles.subtitle}>Our Team</h2>
