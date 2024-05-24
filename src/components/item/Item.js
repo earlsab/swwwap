@@ -13,8 +13,8 @@ const Item = ({
   content,
 }) => {
   return (
-    <div className="item-container">
-      <button>
+    <div>
+      <button className="item-container">
         {/* TODO: Auto adjust width and height based on image */}
         <CldImage
           src={imageUrl}

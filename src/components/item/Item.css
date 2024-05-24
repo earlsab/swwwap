@@ -21,7 +21,7 @@
   
   .item-details {
     flex: 1;
-
+    width: 70px;
   }
   
   .item-title {

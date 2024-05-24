@@ -14,9 +14,10 @@ const SmallItem = ({
   return (
     <button className="SmallItem-container">
       <div className="SmallItem-details">
-        <p className="SmallItem-owner">{ownerName}</p>
-        <h2 className="SmallItem-title">{title}</h2>
-        <p className="SmallItem-price">PHP {price}</p>
+        <div className="NewItemVisuals">
+            New!
+        </div>
+        <h2 className="SmallItem-title">{title} <span>PHP {price}</span></h2>
       </div>
     </button>
   );
