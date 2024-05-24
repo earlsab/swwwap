@@ -3,32 +3,20 @@ import Item from "../item/Item";
 import HeaderBar from "../utilities/header/HeaderBar";
 import useSWR from "swr";
 import Link from "next/link";
-import "./FeaturedBar.css";
+import "./NewListBar.css";
 
 const fetcher = async (uri) => {
-  const response = await fetch(uri);
-  return response.json();
-};
+    const response = await fetch(uri);
+    return response.json();
+  };
 
-const FeaturedBar = () => {
-  const { data, error } = useSWR(
-    "/api/protected/data/fetchList?sortBy=createdDesc",
-    fetcher
-  );
-  //   const { data, error } = useSWR(
-  //     "/api/protected/data/fetchList?filterByPrice=500",
-  //     fetcher
-  //   );
-  //   const { data, error } = useSWR(
-  //     "/api/protected/data/fetchList?filterByBrand=Apple",
-  //     fetcher
-  //   );
-  if (error) return <div>oops... {error.message}</div>;
-  if (data === undefined) return <div>Loading...</div>;
+const NewListBar = () => {
+    const { data, error } = useSWR("/api/protected/data/fetchList", fetcher);
+    if (error) return <div>oops... {error.message}</div>;
+    if (data === undefined) return <div>Loading...</div>;
 
-  return (
     <div className="container3">
-      <HeaderBar texts={"Featured"} imageSrc={'phone'}/>
+      <HeaderBar texts={"Newly Listed"} imageSrc={'fire'}/>
       <div className="itemsContainer">
         {data.protected.map((item) => (
           <Link key={item._id} href={`listings/${item._id}`}>
@@ -46,7 +34,6 @@ const FeaturedBar = () => {
         ))}
       </div>
     </div>
-  );
 };
 
-export default FeaturedBar;
+export default NewListBar;

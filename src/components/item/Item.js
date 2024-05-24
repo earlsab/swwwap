@@ -22,6 +22,7 @@ const Item = ({
         width={100}
         height={100}
       ></CldImage>
+      
       <div className="item-details">
         <p className="item-owner">{ownerName}</p>
         <h2 className="item-title">{title}</h2>
