@@ -16,6 +16,7 @@ export const GET = withApiAuthRequired(async function fetchItems(req) {
   const filterOutSelf = searchParams.get("filterOutSelf");
   const filterByBrand = searchParams.get("filterByBrand");
   const filterByOwner = searchParams.get("filterByOwner");
+  const filterByGoodPrice = searchParams.get("filterByGoodPrice");
   const filterByPrice = parseInt(searchParams.get("filterByPrice"));
   const showOnlySellingStatus = parseInt(
     searchParams.get("showOnlySellingStatus")
@@ -52,6 +53,9 @@ export const GET = withApiAuthRequired(async function fetchItems(req) {
   console.log(filterByPrice, upperLimit, lowerLimit);
   if (filterByPrice) {
     query = { ...query, price: { $lte: upperLimit, $gte: lowerLimit } };
+  }
+  if (filterByGoodPrice) {
+    query = { ...query, priceStatus: "Market Price" };
   }
 
   if (sortByNew == "createdDesc") {
