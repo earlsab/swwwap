@@ -45,17 +45,19 @@ export default withPageAuthRequired(
     return (
       <>
         <SellItemBar />
-        
+        <br />
+        <br />
+        <br />
+        <br />
         <div className="container2">
-          <FeaturedBar/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <NewListBar/>
+          <FeaturedBar />
+          <br />
+          <br />
+          <br />
+          <br />
+          <NewListBar />
         </div>
       </>
-      
     );
     // const [data, setData] = useState();
     // async function fetchData() {

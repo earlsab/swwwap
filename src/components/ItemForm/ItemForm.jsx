@@ -103,7 +103,8 @@ function ItemForm({ toast = null, data = null, isEditing = null }) {
   return (
     <div className="containerForItemForm">
       <div className="HeaderForItemForm">
-        <h1>Selling your phone?</h1>
+        {!isEditing && <h1>Selling your phone?</h1>}
+        {isEditing && <h1>Edit your Listing</h1>}
       </div>
       <div className="BodyForItemForm">
         <div className="FormsCatalogueForItemForm">
@@ -169,12 +170,14 @@ function ItemForm({ toast = null, data = null, isEditing = null }) {
             </label>
             <br />
             <CldUploadButton
+              className="button longContained"
               uploadPreset="gos2dtki"
               onSuccess={(results) => {
                 setImageUrl(results.info.public_id);
                 // console.log("Public ID", results.info.public_id);
               }}
             />
+            <br />
             <br />
             {!isEditing && (
               <Button
