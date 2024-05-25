@@ -48,26 +48,25 @@ export default withPageAuthRequired(
     async function handleToggleStatus() {
       await axios.put(`/api/protected/data/toggleSold?id=${params.slug}`);
       console.log(sellingState);
-      if (sellingState == null) {
-        if (data.protected.itemSellingStatus == 1) {
-          setSellingState(0);
-        } else {
-          setSellingState(1);
-        }
+
+      if (
+        data.protected.itemSellingStatus == 1 ||
+        sellingState == null ||
+        sellingState == 1
+      ) {
+        setSellingState(0);
       } else {
-        if (sellingState == 1) {
-          setSellingState(0);
-        } else {
-          setSellingState(1);
-        }
+        setSellingState(1);
       }
     }
 
     let sellToggleTerm;
-    if (sellingState == 1) {
+    if (sellingState == 0) {
+      sellToggleTerm = "Selling";
+    } else if (sellingState == 1) {
       sellToggleTerm = "Sold";
     } else {
-      sellToggleTerm = "Selling";
+      setSellingState(data.protected.itemSellingStatus);
     }
 
     return (
@@ -82,7 +81,14 @@ export default withPageAuthRequired(
             <div className="headerTitlesForEachItem">
               <p className="ownerForEachItem">{data.protected.owner}</p>
               <p className="titleForEachItem">{data.protected.title}</p>
-              <p className="priceForEachItem">PHP {data.protected.price}</p>
+              { data.protected.priceDetail === "Market Price" ? 
+                  (<p className="priceForEachItem">PHP {data.protected.price}</p>)
+                : 
+                (
+                  (<p className="priceForEachItemBad">PHP {data.protected.price}</p>)
+                )
+              }
+              
               <div className="headerButtonHolderForEachItem">
                 {data.protected && data.isEditable ? (
                   <>

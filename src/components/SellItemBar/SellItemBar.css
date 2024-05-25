@@ -1,15 +1,31 @@
-.container {
-    height: 15%;
-    width: 100%;
+.container1234 {
+    background-color: #fcfcfc;
+    height: 30%;
+    width: 80%;
     border: 1px;
     margin-left: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    flex-direction: column; /* Stack children vertically */
+    justify-content: center; /* Center children vertically */
+    align-items: center; /* Center children horizontally */
+    display: flex;
+    flex-direction: row; /* Place children in a row */
+    justify-content: space-between; /* Space out children */
+    align-items: center; /* Center children vertically */
 }
 .textsSellItemBar
 {
     font-size: 45px;
+    font-weight: 600;
+    margin-left: 40px;
+    margin-top: 30px;
 }
 .ButtonHolderSellItemBar
 {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 40px;
+    margin-left: 40px;
+}
+.photoForSellItemBar {
+    margin-left: auto; /* Push the photo to the right */
+    margin-right: 90px;
 }

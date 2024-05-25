@@ -11,21 +11,23 @@ const SellItemBar = () => {
         router.push('/listings/add');
     };
     return (
-        <div className="container">
+        <div className="container1234">
             <div className="textsSellItemBar">
-                <h1>Earn Money From Old Devices.</h1>
-            </div>
-            <div className="photo">
-                {/* <Image
-                src={HeaderPhoto}
-                alt="swwwap logo"
-                width={100}
-                height={50}
-                /> */}
-            </div>
+                <h1><br/>Earn Money From Old Devices.</h1>
             <div className="ButtonHolderSellItemBar">
-            <Button variant="longContained" onClick={handleClickforSell} text="Sell an Item." />
+                <Button variant="longContained" onClick={handleClickforSell} text="Sell an Item." />
             </div>
+            </div>
+            
+            <div className="photoForSellItemBar">
+                <Image
+                src="./headerIcon.svg"
+                alt="swwwap logo"
+                width={250}
+                height={50}
+                />
+            </div>
+            
         </div>
         
     );

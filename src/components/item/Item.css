@@ -21,12 +21,12 @@
   
   .item-details {
     flex: 1;
-
+    width: 70px;
   }
   
   .item-title {
     font-size: 1.2rem;
-    margin-bottom: -3px;
+    margin-bottom: 5px;
     margin-left: -10px;
     font-weight: bold;
   }
@@ -41,6 +41,15 @@
   .item-price {
     margin-bottom: 0px;
     margin-left: -10px;
+    font-weight: 700;
+    color: #28cb8b;
+  }
+
+  .item-priceBad {
+    margin-bottom: 0px;
+    margin-left: -10px;
+    font-weight: 700;
+    color: #cb2833;
   }
   
   .item-price-detail {

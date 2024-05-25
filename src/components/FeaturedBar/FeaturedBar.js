@@ -41,7 +41,7 @@ const FeaturedBar = () => {
               title={item.title}
               price={item.price}
               priceDetail={item.priceStatus}
-              quality={item.quality}
+              quality={item.rfs}
               content={item.description}
             />
           </Link>
