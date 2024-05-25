@@ -45,10 +45,14 @@ export default withPageAuthRequired(
     return (
       <>
         <SellItemBar />
-        <NewListBar/>
+        
         <div className="container2">
           <FeaturedBar/>
-          
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <NewListBar/>
         </div>
       </>
       

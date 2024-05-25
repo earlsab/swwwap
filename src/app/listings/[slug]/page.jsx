@@ -81,7 +81,14 @@ export default withPageAuthRequired(
             <div className="headerTitlesForEachItem">
               <p className="ownerForEachItem">{data.protected.owner}</p>
               <p className="titleForEachItem">{data.protected.title}</p>
-              <p className="priceForEachItem">PHP {data.protected.price}</p>
+              { data.protected.priceDetail === "Market Price" ? 
+                  (<p className="priceForEachItem">PHP {data.protected.price}</p>)
+                : 
+                (
+                  (<p className="priceForEachItemBad">PHP {data.protected.price}</p>)
+                )
+              }
+              
               <div className="headerButtonHolderForEachItem">
                 {data.protected && data.isEditable ? (
                   <>
