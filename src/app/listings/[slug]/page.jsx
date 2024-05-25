@@ -81,7 +81,7 @@ export default withPageAuthRequired(
             <div className="headerTitlesForEachItem">
               <p className="ownerForEachItem">{data.protected.owner}</p>
               <p className="titleForEachItem">{data.protected.title}</p>
-              {data.protected.priceDetail === "Market Price" ? (
+              {data.protected.priceStatus == "Market Price" ? (
                 <p className="priceForEachItem">PHP {data.protected.price}</p>
               ) : (
                 <p className="priceForEachItemBad">
