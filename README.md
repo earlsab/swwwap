@@ -1,5 +1,12 @@
 www.swwwap.vercel.com
 
+Tech Stack
+- Next.js
+- MongoDB
+- Cloudinary
+- Auth0
+- Vercel
+
 CSS might or might not be done with the help of Github Copilot.
 
 Tutorials that helped along the way:
