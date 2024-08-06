@@ -1,5 +1,9 @@
+A rushed project for an assignment. \
+Made with Next.js, MongoDB, Auth0, and Cloudinary. \
+Hosted with Vercel. \
 www.swwwap.vercel.com
 
+---
 CSS might or might not be done with the help of Github Copilot.
 
 Tutorials that helped along the way:
