@@ -1,7 +1,7 @@
 A rushed project for an assignment. \
 Made with Next.js, MongoDB, Auth0, and Cloudinary. \
 Hosted with Vercel. \
-www.swwwap.vercel.app
+[swwwap.vercel.app](https://swwwap.vercel.app/)
 
 ---
 CSS might or might not be done with the help of Github Copilot.
