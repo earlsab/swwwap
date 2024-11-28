@@ -1,7 +1,9 @@
 A rushed project for an assignment. \
 Made with Next.js, MongoDB, Auth0, and Cloudinary. \
-Hosted with Vercel. \
+Hosted with Vercel. \ 
 [swwwap.vercel.app](https://swwwap.vercel.app/)
+
+‼️‼️ Cloudinary and MongoDB has been disabled.
 
 ---
 CSS might or might not be done with the help of Github Copilot.
